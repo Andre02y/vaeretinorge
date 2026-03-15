@@ -26,6 +26,8 @@ jobs:
           pip install requests pandas
 
       - name: Run weather script
+        env:
+          FROST_CLIENT_ID: ${{ secrets.FROST_CLIENT_ID }}
         run: |
           python norges-verste-vaer-full/scripts/fetch_frost_data.py
 
@@ -33,6 +35,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add norges-verste-vaer-full/scripts/data_store.json
+          git add -A
           git commit -m "Auto update weather data" || echo "No changes"
           git push
