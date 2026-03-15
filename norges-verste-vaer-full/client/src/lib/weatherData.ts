@@ -5,7 +5,7 @@
  * FREMTIDSSIKRING: For a oppdatere dashboardet med nye data,
  * erstatt kun denne filen. Designet endres ikke.
  *
- * Sist oppdatert: 15.03.2026 kl. 15:59
+ * Sist oppdatert: 15.03.2026 kl. 16:48
  * Periode sammenlagt: 14.03 - 14.03.2026 (1 dager)
  * Kilde: Frost API (frost.met.no), P1D + timesdata
  * ============================================================
@@ -17,8 +17,8 @@ export const META = {
   serieNavn: "Norges Verste Vaer",
   dagLabel: "Lørdag 14.03.2026",
   sammenlagtLabel: "14.03 - 14.03.2026 (1 dager)",
-  datoOppdatert: "15.03.2026 kl. 15:59",
-  rapportVersjon: "v2.0 (Frost API P1D + timesdata, auto-oppdatering)",
+  datoOppdatert: "15.03.2026 kl. 16:48",
+  rapportVersjon: "v2.1 (Frost API P1D + timesdata, auto-oppdatering, fikset uke/arkiv-logikk)",
   dagLabels: ["Lør 14"],
 };
 
@@ -75,6 +75,61 @@ export const STASJONER_PERIODE = [
 // ---- UKENS TOPP 5 STASJONER (sammenlagt) ----
 
 export const STASJONER_UKE = [
+  {
+    navn: "E69 NORDKAPP",
+    kommune: "NORDKAPP",
+    fylke: "Finnmark",
+    totalEi: 71.8,
+    gustMax: 0,
+    precipTotal: 20.5,
+    tempMin: 1.4,
+    dager: [0, 0, 0, 0, 0, 71.8, 0],
+    beskrivelse: "Ekstremt vaer hele uken med snitt 72 EI per dag. Toppdag Lør med 71.8 EI. Mye nedbor med totalt 20.5 mm."
+  },
+  {
+    navn: "ISKORAS II",
+    kommune: "KARASJOK",
+    fylke: "Finnmark",
+    totalEi: 67.8,
+    gustMax: 30.2,
+    precipTotal: 0,
+    tempMin: -0.9,
+    dager: [0, 0, 0, 0, 0, 67.8, 0],
+    beskrivelse: "Ekstremt vaer hele uken med snitt 68 EI per dag. Toppdag Lør med 67.8 EI. Kraftige vindkast opp til 30.2 m/s."
+  },
+  {
+    navn: "FINNESVATNET",
+    kommune: "VARDØ",
+    fylke: "Finnmark",
+    totalEi: 67.2,
+    gustMax: 20.6,
+    precipTotal: 4.3,
+    tempMin: 2.0,
+    dager: [0, 0, 0, 0, 0, 67.2, 0],
+    beskrivelse: "Ekstremt vaer hele uken med snitt 67 EI per dag. Toppdag Lør med 67.2 EI."
+  },
+  {
+    navn: "MEHAMN LUFTHAVN",
+    kommune: "GAMVIK",
+    fylke: "Finnmark",
+    totalEi: 67.2,
+    gustMax: 20.3,
+    precipTotal: 5.2,
+    tempMin: 2.0,
+    dager: [0, 0, 0, 0, 0, 67.2, 0],
+    beskrivelse: "Ekstremt vaer hele uken med snitt 67 EI per dag. Toppdag Lør med 67.2 EI."
+  },
+  {
+    navn: "TORVHAUGDALEN",
+    kommune: "NESSEBY",
+    fylke: "Finnmark",
+    totalEi: 65.1,
+    gustMax: 18.1,
+    precipTotal: 2.1,
+    tempMin: 0.2,
+    dager: [0, 0, 0, 0, 0, 65.1, 0],
+    beskrivelse: "Ekstremt vaer hele uken med snitt 65 EI per dag. Toppdag Lør med 65.1 EI."
+  },
 ];
 
 // ---- TRONSKIFTE ----
@@ -202,40 +257,6 @@ export const ARKIV: ArkivUke[] = [
         tempMin: -2.5,
         beskrivelse: "Mye nedbør og kulde, 69.5 EI søndag med 35.8mm nedbør."
       },
-    ]
-  },
-  {
-    ukeId: "2026-W11",
-    uke: "Uke 11",
-    periode: "10.03 - 16.03.2026",
-    versteFylke: "Finnmark",
-    versteFylkeScore: 35.7,
-    versteStasjon: "Ukjent",
-    versteStasjonKommune: "Ukjent",
-    versteStasjonFylke: "Ukjent",
-    versteStasjonScore: 0,
-    dominerendeVaertype: "Sterk vind, mye nedbor, temperaturer naer frysepunktet",
-    oppsummering: "Uke 11 ble preget av moderat vaer der Finnmark ledet med 35.7 poeng. Nordland (34.6) og Troms (30.9) fulgte paa de neste plassene.",
-    fylkerTotal: { "Finnmark": 35.7, "Troms": 30.9, "Nordland": 34.6, "Trøndelag": 23.8, "Møre og Romsdal": 25.7, "Vestland": 28.2, "Rogaland": 24.6, "Agder": 25.3, "Telemark": 22.9, "Vestfold": 22.0, "Buskerud": 22.5, "Innlandet": 25.4, "Akershus": 24.0, "Østfold": 24.9, "Oslo": 25.0 },
-    fylkerDagForDag: {
-      "Finnmark": [35.7],
-      "Troms": [30.9],
-      "Nordland": [34.6],
-      "Trøndelag": [23.8],
-      "Møre og Romsdal": [25.7],
-      "Vestland": [28.2],
-      "Rogaland": [24.6],
-      "Agder": [25.3],
-      "Telemark": [22.9],
-      "Vestfold": [22.0],
-      "Buskerud": [22.5],
-      "Innlandet": [25.4],
-      "Akershus": [24.0],
-      "Østfold": [24.9],
-      "Oslo": [25.0],
-    },
-    dagLabels: ["Tir 10"],
-    toppStasjoner: [
     ]
   },
 ];
