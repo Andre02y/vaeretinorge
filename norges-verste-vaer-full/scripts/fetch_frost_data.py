@@ -13,7 +13,7 @@ Nøkkelforbedringer v2:
 - Ukentlig stasjonsranking: STASJONER_UKE oppdateres daglig
 
 Bruk:
-  export FROST_CLIENT_ID=c3d9b083-dfe9-46fd-8095-ac6c1d7f437c
+  export FROST_CLIENT_ID=din_client_id
   python3 scripts/fetch_frost_data.py [--date YYYY-MM-DD]
 ============================================================
 """
@@ -21,10 +21,9 @@ Bruk:
 import os
 import sys
 import json
-import re
 import logging
 import argparse
-from datetime import datetime, date, timedelta, timezone
+from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 import requests
@@ -46,9 +45,6 @@ ALL_FYLKER = [
     "Buskerud", "Innlandet", "Akershus", "Østfold", "Oslo"
 ]
 
-# Fylke-mapping basert på kommunenummer-prefix
-# Norske kommunenummer: https://no.wikipedia.org/wiki/Kommunenummer
-# Duplikater unngås ved å bruke 4-sifret prefix der nødvendig
 KOMMUNE_FYLKE = {
     "03": "Oslo",
     "30": "Akershus", "31": "Østfold", "32": "Buskerud",
@@ -78,13 +74,22 @@ def load_data_store():
     """Load persistent data store (JSON) that tracks week state."""
     if os.path.exists(DATA_STORE_PATH):
         with open(DATA_STORE_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {
-        "current_week_start": None,
-        "days": {},
-        "station_days": {},
-        "archive": []
-    }
+            store = json.load(f)
+    else:
+        store = {
+            "current_week_start": None,
+            "current_week_iso": None,
+            "days": {},
+            "station_days": {},
+            "archive": []
+        }
+
+    store.setdefault("current_week_start", None)
+    store.setdefault("current_week_iso", None)
+    store.setdefault("days", {})
+    store.setdefault("station_days", {})
+    store.setdefault("archive", [])
+    return store
 
 
 def save_data_store(store):
@@ -97,6 +102,37 @@ def save_data_store(store):
 def get_week_start(d):
     """Get Monday of the week containing date d."""
     return d - timedelta(days=d.weekday())
+
+
+def sanitize_archive(store):
+    """
+    Clean archive:
+    - Remove any entry that matches the current week
+    - Remove duplicates by ukeId
+    - Keep only valid dict entries with ukeId
+    """
+    current_week_iso = store.get("current_week_iso")
+    cleaned = {}
+
+    for entry in store.get("archive", []):
+        if not isinstance(entry, dict):
+            continue
+        uke_id = entry.get("ukeId")
+        if not uke_id:
+            continue
+        if current_week_iso and uke_id == current_week_iso:
+            continue
+        cleaned[uke_id] = entry
+
+    def sort_key(item):
+        uke_id = item.get("ukeId", "")
+        try:
+            year_part, week_part = uke_id.split("-W")
+            return (int(year_part), int(week_part))
+        except Exception:
+            return (0, 0)
+
+    store["archive"] = sorted(cleaned.values(), key=sort_key)
 
 
 # ---- FROST API ----
@@ -112,7 +148,7 @@ def frost_get(url, params, retries=3):
                 log.warning(f"Frost 404: No data for params {params.get('referencetime', '')}")
                 return None
             elif resp.status_code == 412:
-                log.warning(f"Frost 412: No matching data")
+                log.warning("Frost 412: No matching data")
                 return None
             else:
                 log.warning(f"Frost HTTP {resp.status_code} (attempt {attempt+1})")
@@ -144,6 +180,7 @@ def get_station_metadata():
         sid = s.get("id", "").split(":")[0]
         if not sid or not s.get("municipalityId"):
             continue
+
         muni_id = str(s["municipalityId"]).zfill(4)
         prefix = muni_id[:2]
 
@@ -169,7 +206,7 @@ def get_station_metadata():
 
 
 def fetch_daily_p1d(date_str, station_ids):
-    """Fetch P1D (daily aggregate) data. Returns dict of {station_id: {wind_mean, gust_max, precip, temp_mean}}."""
+    """Fetch P1D (daily aggregate) data."""
     log.info(f"Fetching P1D data for {date_str}...")
     next_day = (datetime.strptime(date_str, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
     obs = {}
@@ -214,7 +251,7 @@ def fetch_daily_p1d(date_str, station_ids):
 
 
 def fetch_hourly_data(date_str, station_ids):
-    """Fetch hourly (PT1H) data as fallback. Returns dict of {station_id: {wind_mean, gust_max, precip, temp_mean}}."""
+    """Fetch hourly (PT1H) data as fallback."""
     log.info(f"Fetching hourly data for {date_str}...")
     next_day = (datetime.strptime(date_str, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
     hourly_raw = defaultdict(lambda: {"winds": [], "gusts": [], "temps": [], "precip_by_hour": {}})
@@ -235,7 +272,6 @@ def fetch_hourly_data(date_str, station_ids):
             for record in data["data"]:
                 sid = record.get("sourceId", "").split(":")[0]
                 ref_time = record.get("referenceTime", "")
-                # Extract hour for dedup
                 hour_key = ref_time[:13] if len(ref_time) >= 13 else ref_time
                 for o in record.get("observations", []):
                     eid = o.get("elementId", "")
@@ -250,14 +286,12 @@ def fetch_hourly_data(date_str, station_ids):
                     elif "temperature" in eid:
                         hourly_raw[sid]["temps"].append(val)
                     elif "precipitation" in eid:
-                        # Deduplicate by hour — only keep one value per hour
                         if hour_key not in hourly_raw[sid]["precip_by_hour"]:
                             hourly_raw[sid]["precip_by_hour"][hour_key] = max(0, val)
 
         if (i // batch_size) % 10 == 0 and i > 0:
             log.info(f"  Hourly progress: {i}/{len(station_ids)} stations...")
 
-    # Aggregate hourly to daily
     obs = {}
     for sid, h in hourly_raw.items():
         obs[sid] = {}
@@ -289,7 +323,6 @@ def merge_observations(p1d_obs, hourly_obs):
             "temp_mean": p1d.get("temp_mean", hourly.get("temp_mean", 0)),
         }
 
-    # Count stations with actual precipitation data
     precip_count = sum(1 for s in merged.values() if s["precip"] > 0)
     log.info(f"Merged: {len(merged)} stations total, {precip_count} with precipitation > 0")
     return merged
@@ -366,7 +399,7 @@ def find_top_stations(obs_data, stations, n=5):
 
 
 def compute_weekly_station_ranking(store, stations, n=5):
-    """Compute weekly top stations by summing daily EI across all days in the week."""
+    """Compute weekly top stations by summing daily EI across current week."""
     station_totals = defaultdict(lambda: {
         "daily_ei": {},
         "max_gust": 0,
@@ -384,15 +417,17 @@ def compute_weekly_station_ranking(store, stations, n=5):
             station_totals[sid]["min_temp"] = min(station_totals[sid]["min_temp"], sdata.get("temp", 99))
             station_totals[sid]["days_count"] += 1
 
-    # Build ranked list
     ranked = []
     for sid, totals in station_totals.items():
         if sid not in stations:
             continue
-        if totals["days_count"] < 2:
-            continue  # Need at least 2 days of data
+
+        # Vis også stasjoner når det bare finnes 1 dag i ny uke
+        if totals["days_count"] < 1:
+            continue
+
         total_ei = round(sum(totals["daily_ei"].values()), 1)
-        # Build daily array aligned to week days
+
         week_start = store.get("current_week_start")
         if week_start:
             ws = datetime.strptime(week_start, "%Y-%m-%d").date()
@@ -432,13 +467,13 @@ def generate_week_summary(top3, best_station, best_station_fylke, best_station_s
         parts.append(f"hardt vaer i {top3[0][0]} som vant med {top3[0][1]:.1f} poeng.")
     else:
         parts.append(f"moderat vaer der {top3[0][0]} ledet med {top3[0][1]:.1f} poeng.")
-    
+
     if len(top3) > 1:
         parts.append(f"{top3[1][0]} ({top3[1][1]:.1f}) og {top3[2][0]} ({top3[2][1]:.1f}) fulgte paa de neste plassene.")
-    
-    if best_station_score > 300:
+
+    if best_station_score > 0:
         parts.append(f"{best_station} i {best_station_fylke} ble ukens verste stasjon med {best_station_score:.1f} sammenlagt EI.")
-    
+
     return " ".join(parts)
 
 
@@ -448,15 +483,13 @@ def determine_weather_type(days_data, ordered_dates):
     min_temp = 99
     max_gust = 0
     for ds in ordered_dates:
-        for fylke, ei in days_data[ds].get("county_ei", {}).items():
-            pass
         for s in days_data[ds].get("top_stations", []):
             total_precip += s.get("nedbor", 0)
             if s.get("temp", 99) < min_temp:
                 min_temp = s.get("temp", 99)
             if s.get("vindkast", 0) > max_gust:
                 max_gust = s.get("vindkast", 0)
-    
+
     parts = []
     if max_gust > 25:
         parts.append("Sterk vind")
@@ -466,7 +499,7 @@ def determine_weather_type(days_data, ordered_dates):
         parts.append("vedvarende kulde")
     elif min_temp < 2:
         parts.append("temperaturer naer frysepunktet")
-    
+
     if not parts:
         return "Varierende vaer"
     return ", ".join(parts)
@@ -482,7 +515,7 @@ def generate_trend(prev_score, new_score):
     elif diff > 2:
         return f"Noe forverring (+{diff:.1f}) - ustabilt vaer fortsetter"
     elif diff > -2:
-        return f"Stabilt - lite endring fra i gar"
+        return "Stabilt - lite endring fra i gar"
     elif diff > -5:
         return f"Noe bedring ({diff:.1f}) - roligere forhold"
     else:
@@ -494,6 +527,7 @@ def generate_station_description(s):
     dager = s.get("dager", [])
     if not dager or all(d == 0 for d in dager):
         return "Begrenset data tilgjengelig."
+
     peak_val = max(dager)
     peak_idx = dager.index(peak_val)
     peak_day = DAY_LABELS_NO[peak_idx] if peak_idx < len(DAY_LABELS_NO) else f"Dag {peak_idx+1}"
@@ -525,6 +559,7 @@ def generate_weather_data_ts(store, stations):
     """Generate the complete weatherData.ts file from the data store."""
     days_data = store.get("days", {})
     week_start_str = store.get("current_week_start")
+    current_week_iso = store.get("current_week_iso")
 
     if not week_start_str or not days_data:
         log.error("No data in store to generate weatherData.ts")
@@ -532,7 +567,6 @@ def generate_weather_data_ts(store, stations):
 
     week_start = datetime.strptime(week_start_str, "%Y-%m-%d").date()
 
-    # Build ordered day list (Mon-Sun)
     ordered_dates = []
     for i in range(7):
         d = week_start + timedelta(days=i)
@@ -544,14 +578,12 @@ def generate_weather_data_ts(store, stations):
         log.error("No dates found in data store")
         return False
 
-    # Build labels
     dag_labels = []
     for ds in ordered_dates:
         d = datetime.strptime(ds, "%Y-%m-%d").date()
         day_num = d.strftime("%d")
         dag_labels.append(f"{DAY_LABELS_NO[d.weekday()]} {day_num}")
 
-    # Build per-fylke daily arrays
     fylke_daily = {}
     for fylke in ALL_FYLKER:
         fylke_daily[fylke] = []
@@ -559,27 +591,22 @@ def generate_weather_data_ts(store, stations):
             county_ei = days_data[ds].get("county_ei", {})
             fylke_daily[fylke].append(county_ei.get(fylke, 0.0))
 
-    # Calculate totals
     totals = {f: round(sum(d), 1) for f, d in fylke_daily.items()}
     sorted_total = sorted(totals.items(), key=lambda x: x[1], reverse=True)
 
-    # Latest day data
     latest_date = ordered_dates[-1]
     latest_county_ei = days_data[latest_date].get("county_ei", {})
     latest_top_stations = days_data[latest_date].get("top_stations", [])
 
-    # Previous day for trend
     prev_date = ordered_dates[-2] if len(ordered_dates) >= 2 else None
     prev_county_ei = days_data[prev_date].get("county_ei", {}) if prev_date else {}
 
-    # Trends
     trends = {}
     for fylke in ALL_FYLKER:
         prev = prev_county_ei.get(fylke, 0)
         curr = latest_county_ei.get(fylke, 0)
         trends[fylke] = generate_trend(prev, curr)
 
-    # Ranking changes
     if prev_date:
         prev_totals = {}
         for fylke in ALL_FYLKER:
@@ -592,13 +619,11 @@ def generate_weather_data_ts(store, stations):
     new_rank = {f: i for i, (f, _) in enumerate(sorted_total)}
     rank_change = {f: prev_rank.get(f, 0) - new_rank.get(f, 0) for f in ALL_FYLKER}
 
-    # Today's leader
     today_sorted = sorted(latest_county_ei.items(), key=lambda x: x[1], reverse=True)
     today_leader = today_sorted[0] if today_sorted else ("Ukjent", 0)
 
-    # Overall leader
     overall_leader = sorted_total[0][0]
-    prev_leader = sorted_total[0][0]  # Will check tronskifte below
+    prev_leader = sorted_total[0][0]
     if prev_date:
         prev_total_sorted = sorted(
             {f: round(sum(fylke_daily[f][:-1]), 1) for f in ALL_FYLKER}.items(),
@@ -608,10 +633,8 @@ def generate_weather_data_ts(store, stations):
 
     tronskifte_aktiv = overall_leader != prev_leader
 
-    # Weekly station ranking
     weekly_stations = compute_weekly_station_ranking(store, stations, n=5)
 
-    # Date formatting
     latest_d = datetime.strptime(latest_date, "%Y-%m-%d").date()
     day_name = DAY_NAMES_NO[latest_d.weekday()]
     date_str_no = latest_d.strftime("%d.%m.%Y")
@@ -619,11 +642,9 @@ def generate_weather_data_ts(store, stations):
     first_d = datetime.strptime(ordered_dates[0], "%Y-%m-%d").date()
     period_str = f"{first_d.strftime('%d.%m')} - {latest_d.strftime('%d.%m.%Y')} ({len(ordered_dates)} dager)"
 
-    # Get leader station temp/precip for DAGENS_LEDER
     leader_temp = 0
     leader_precip = 0
     if latest_top_stations:
-        # Find the station in the leader's fylke
         for s in latest_top_stations:
             if s.get("fylke") == today_leader[0]:
                 leader_temp = s.get("temp", 0)
@@ -633,10 +654,9 @@ def generate_weather_data_ts(store, stations):
             leader_temp = latest_top_stations[0].get("temp", 0)
             leader_precip = latest_top_stations[0].get("nedbor", 0)
 
-    # Archive data
-    archive = store.get("archive", [])
+    # Viktig: ARKIV skal aldri inneholde nåværende uke
+    archive = [a for a in store.get("archive", []) if a.get("ukeId") != current_week_iso]
 
-    # ---- BUILD FILE ----
     lines = []
     lines.append('/**')
     lines.append(' * ============================================================')
@@ -652,21 +672,19 @@ def generate_weather_data_ts(store, stations):
     lines.append(' */')
     lines.append('')
 
-    # META
     lines.append('// ---- METADATA ----')
     lines.append('')
     lines.append('export const META = {')
-    lines.append(f'  serieNavn: "Norges Verste Vaer",')
+    lines.append('  serieNavn: "Norges Verste Vaer",')
     lines.append(f'  dagLabel: "{day_name} {date_str_no}",')
     lines.append(f'  sammenlagtLabel: "{period_str}",')
     lines.append(f'  datoOppdatert: "{now_str}",')
-    lines.append(f'  rapportVersjon: "v2.0 (Frost API P1D + timesdata, auto-oppdatering)",')
+    lines.append('  rapportVersjon: "v2.1 (Frost API P1D + timesdata, auto-oppdatering, fikset uke/arkiv-logikk)",')
     labels_str = ", ".join(f'"{l}"' for l in dag_labels)
     lines.append(f'  dagLabels: [{labels_str}],')
     lines.append('};')
     lines.append('')
 
-    # DAG-FOR-DAG
     lines.append('// ---- DAG-FOR-DAG EI PER FYLKE ----')
     lines.append('')
     lines.append('export const FYLKER_DAG_FOR_DAG = [')
@@ -678,7 +696,6 @@ def generate_weather_data_ts(store, stations):
     lines.append('];')
     lines.append('')
 
-    # SAMMENLAGT
     lines.append('// ---- SAMMENLAGT ----')
     lines.append('')
     lines.append('export const FYLKER_SAMMENLAGT = [')
@@ -691,7 +708,6 @@ def generate_weather_data_ts(store, stations):
     lines.append('];')
     lines.append('')
 
-    # TOPP 5 STASJONER (dagens)
     lines.append(f'// ---- TOPP 5 STASJONER {day_name.upper()} {date_str_no} ----')
     lines.append('')
     lines.append('export const STASJONER_PERIODE = [')
@@ -700,13 +716,12 @@ def generate_weather_data_ts(store, stations):
     lines.append('];')
     lines.append('')
 
-    # UKENS TOPP 5 STASJONER
     lines.append('// ---- UKENS TOPP 5 STASJONER (sammenlagt) ----')
     lines.append('')
     lines.append('export const STASJONER_UKE = [')
     for s in weekly_stations:
         dager_str = ", ".join(f"{d}" for d in s["dager"])
-        desc = generate_station_description(s)
+        desc = generate_station_description(s).replace('"', '\\"')
         lines.append('  {')
         lines.append(f'    navn: "{s["navn"]}",')
         lines.append(f'    kommune: "{s["kommune"]}",')
@@ -721,7 +736,6 @@ def generate_weather_data_ts(store, stations):
     lines.append('];')
     lines.append('')
 
-    # TRONSKIFTE
     lines.append('// ---- TRONSKIFTE ----')
     lines.append('')
     lines.append('export const TRONSKIFTE = {')
@@ -739,7 +753,6 @@ def generate_weather_data_ts(store, stations):
     lines.append('};')
     lines.append('')
 
-    # DAGENS LEDER
     lines.append('// ---- DAGENS LEDER ----')
     lines.append('')
     lines.append('export const DAGENS_LEDER = {')
@@ -750,7 +763,6 @@ def generate_weather_data_ts(store, stations):
     lines.append('};')
     lines.append('')
 
-    # ARKIV — full ArkivUke structure
     lines.append('// ---- ARKIV (fullforte uker) ----')
     lines.append('')
     lines.append('export interface ArkivUke {')
@@ -779,50 +791,46 @@ def generate_weather_data_ts(store, stations):
     lines.append('  }[];')
     lines.append('}')
     lines.append('')
+
     if archive:
         lines.append('export const ARKIV: ArkivUke[] = [')
         for week in archive:
             lines.append('  {')
-            lines.append(f'    ukeId: "{week.get("ukeId", "")}",')  
-            lines.append(f'    uke: "{week.get("uke", "")}",')  
-            lines.append(f'    periode: "{week.get("periode", "")}",')  
-            lines.append(f'    versteFylke: "{week.get("versteFylke", "")}",')  
-            lines.append(f'    versteFylkeScore: {week.get("versteFylkeScore", 0)},')  
-            lines.append(f'    versteStasjon: "{week.get("versteStasjon", "Ukjent")}",')  
-            lines.append(f'    versteStasjonKommune: "{week.get("versteStasjonKommune", "Ukjent")}",')  
-            lines.append(f'    versteStasjonFylke: "{week.get("versteStasjonFylke", "Ukjent")}",')  
-            lines.append(f'    versteStasjonScore: {week.get("versteStasjonScore", 0)},')  
-            lines.append(f'    dominerendeVaertype: "{week.get("dominerendeVaertype", "Varierende vaer")}",')  
-            # Escape quotes in oppsummering
+            lines.append(f'    ukeId: "{week.get("ukeId", "")}",')
+            lines.append(f'    uke: "{week.get("uke", "")}",')
+            lines.append(f'    periode: "{week.get("periode", "")}",')
+            lines.append(f'    versteFylke: "{week.get("versteFylke", "")}",')
+            lines.append(f'    versteFylkeScore: {week.get("versteFylkeScore", 0)},')
+            lines.append(f'    versteStasjon: "{week.get("versteStasjon", "Ukjent")}",')
+            lines.append(f'    versteStasjonKommune: "{week.get("versteStasjonKommune", "Ukjent")}",')
+            lines.append(f'    versteStasjonFylke: "{week.get("versteStasjonFylke", "Ukjent")}",')
+            lines.append(f'    versteStasjonScore: {week.get("versteStasjonScore", 0)},')
+            lines.append(f'    dominerendeVaertype: "{week.get("dominerendeVaertype", "Varierende vaer")}",')
             opps = week.get("oppsummering", "").replace('"', '\\"')
-            lines.append(f'    oppsummering: "{opps}",')  
-            # fylkerTotal
+            lines.append(f'    oppsummering: "{opps}",')
             ft = week.get("fylkerTotal", {})
             ft_items = ", ".join(f'"{k}": {v}' for k, v in ft.items())
-            lines.append(f'    fylkerTotal: {{ {ft_items} }},')  
-            # fylkerDagForDag
+            lines.append(f'    fylkerTotal: {{ {ft_items} }},')
             lines.append('    fylkerDagForDag: {')
             fdfd = week.get("fylkerDagForDag", {})
             for fk, vals in fdfd.items():
                 vals_str = ", ".join(str(v) for v in vals)
                 lines.append(f'      "{fk}": [{vals_str}],')
             lines.append('    },')
-            # dagLabels
             dl = week.get("dagLabels", [])
             dl_str = ", ".join(f'"{l}"' for l in dl)
             lines.append(f'    dagLabels: [{dl_str}],')
-            # toppStasjoner
             lines.append('    toppStasjoner: [')
             for ts in week.get("toppStasjoner", []):
                 ts_desc = ts.get("beskrivelse", "").replace('"', '\\"')
                 lines.append('      {')
-                lines.append(f'        navn: "{ts.get("navn", "")}",')  
-                lines.append(f'        kommune: "{ts.get("kommune", "")}",')  
-                lines.append(f'        fylke: "{ts.get("fylke", "")}",')  
-                lines.append(f'        totalEi: {ts.get("totalEi", 0)},')  
-                lines.append(f'        gustMax: {ts.get("gustMax", 0)},')  
-                lines.append(f'        tempMin: {ts.get("tempMin", 0)},')  
-                lines.append(f'        beskrivelse: "{ts_desc}"')  
+                lines.append(f'        navn: "{ts.get("navn", "")}",')
+                lines.append(f'        kommune: "{ts.get("kommune", "")}",')
+                lines.append(f'        fylke: "{ts.get("fylke", "")}",')
+                lines.append(f'        totalEi: {ts.get("totalEi", 0)},')
+                lines.append(f'        gustMax: {ts.get("gustMax", 0)},')
+                lines.append(f'        tempMin: {ts.get("tempMin", 0)},')
+                lines.append(f'        beskrivelse: "{ts_desc}"')
                 lines.append('      },')
             lines.append('    ]')
             lines.append('  },')
@@ -831,7 +839,6 @@ def generate_weather_data_ts(store, stations):
         lines.append('export const ARKIV: ArkivUke[] = [];')
     lines.append('')
 
-    # HJELPEFUNKSJONER
     lines.append('// ---- HJELPEFUNKSJONER ----')
     lines.append('')
     lines.append('export function scoreColor(score: number): string {')
@@ -905,7 +912,6 @@ def main():
         log.error("Set it with: export FROST_CLIENT_ID=your_client_id")
         sys.exit(1)
 
-    # Determine target date
     if args.date:
         target_date = datetime.strptime(args.date, "%Y-%m-%d").date()
     else:
@@ -914,35 +920,40 @@ def main():
     date_str = target_date.strftime("%Y-%m-%d")
     week_start = get_week_start(target_date)
     week_start_str = week_start.strftime("%Y-%m-%d")
+    iso = target_date.isocalendar()
+    current_week_iso = f"{iso.year}-W{iso.week:02d}"
 
-    log.info(f"=== Norges Verste Vaer - Oppdatering ===")
-    log.info(f"Henter data for: {date_str} (uke starter {week_start_str})")
+    log.info("=== Norges Verste Vaer - Oppdatering ===")
+    log.info(f"Henter data for: {date_str} (uke starter {week_start_str}, {current_week_iso})")
 
-    # Load data store
     store = load_data_store()
 
-    # Check for week change (Monday shift)
-    if store.get("current_week_start") and store["current_week_start"] != week_start_str:
-        log.info(f"NY UKE! Arkiverer uke {store['current_week_start']}...")
+    # Rydd opp gammel dritt før vi gjør noe annet
+    sanitize_archive(store)
 
-        # Archive the completed week with FULL ArkivUke structure
+    stored_week_start = store.get("current_week_start")
+    stored_week_iso = store.get("current_week_iso")
+
+    # UKEBYTTE: arkiver kun hvis tidligere uke faktisk var en annen uke
+    if stored_week_start and stored_week_iso and stored_week_iso != current_week_iso:
+        log.info(f"NY UKE! Arkiverer forrige uke {stored_week_iso}...")
+
         old_days = store.get("days", {})
         old_station_days = store.get("station_days", {})
-        if old_days:
-            old_start = datetime.strptime(store["current_week_start"], "%Y-%m-%d").date()
-            old_end = old_start + timedelta(days=6)
-            iso_week = old_start.isocalendar()[1]
 
-            # Ordered dates for the old week
+        if old_days:
+            old_start = datetime.strptime(stored_week_start, "%Y-%m-%d").date()
+            old_end = old_start + timedelta(days=6)
+            old_iso = old_start.isocalendar()
+            old_week_iso = f"{old_iso.year}-W{old_iso.week:02d}"
+
             old_ordered = sorted(old_days.keys())
 
-            # Build dag labels
             old_dag_labels = []
             for ds in old_ordered:
                 d = datetime.strptime(ds, "%Y-%m-%d").date()
                 old_dag_labels.append(f"{DAY_LABELS_NO[d.weekday()]} {d.strftime('%d')}")
 
-            # Calculate fylke totals and dag-for-dag
             old_totals = {}
             old_fylker_dfd = {}
             for fylke in ALL_FYLKER:
@@ -953,10 +964,17 @@ def main():
                 old_fylker_dfd[fylke] = daily_vals
                 old_totals[fylke] = round(sum(daily_vals), 1)
 
-            old_winner = max(old_totals, key=old_totals.get)
+            old_winner = max(old_totals, key=old_totals.get) if old_totals else "Ukjent"
 
-            # Find best station for the week
-            station_week_totals = defaultdict(lambda: {"total": 0, "max_gust": 0, "min_temp": 99, "total_precip": 0, "days": 0, "daily_ei": []})
+            station_week_totals = defaultdict(lambda: {
+                "total": 0,
+                "max_gust": 0,
+                "min_temp": 99,
+                "total_precip": 0,
+                "days": 0,
+                "daily_ei": []
+            })
+
             for ds in old_ordered:
                 day_stations = old_station_days.get(ds, {})
                 for sid, sdata in day_stations.items():
@@ -967,20 +985,24 @@ def main():
                     station_week_totals[sid]["days"] += 1
                     station_week_totals[sid]["daily_ei"].append(sdata.get("ei", 0))
 
-            # Get station metadata for archive (need to fetch if not available)
             best_station_sid = max(station_week_totals, key=lambda s: station_week_totals[s]["total"]) if station_week_totals else None
             best_station_name = "Ukjent"
             best_station_kommune = "Ukjent"
             best_station_fylke = "Ukjent"
             best_station_score = 0
+
             if best_station_sid and best_station_sid in stations:
                 best_station_name = stations[best_station_sid]["name"]
                 best_station_kommune = stations[best_station_sid]["municipality"]
                 best_station_fylke = stations[best_station_sid]["fylke"]
                 best_station_score = round(station_week_totals[best_station_sid]["total"], 1)
 
-            # Build top 5 stations for archive
-            ranked_stations = sorted(station_week_totals.items(), key=lambda x: x[1]["total"], reverse=True)[:5]
+            ranked_stations = sorted(
+                station_week_totals.items(),
+                key=lambda x: x[1]["total"],
+                reverse=True
+            )[:5]
+
             archive_top_stations = []
             for sid, st in ranked_stations:
                 if sid in stations:
@@ -1008,20 +1030,28 @@ def main():
                         "beskrivelse": " ".join(desc_parts)
                     })
 
-            # Generate oppsummering
             sorted_old = sorted(old_totals.items(), key=lambda x: x[1], reverse=True)
-            top3 = sorted_old[:3]
-            oppsummering = generate_week_summary(top3, best_station_name, best_station_fylke, best_station_score, iso_week)
+            top3 = sorted_old[:3] if len(sorted_old) >= 3 else sorted_old
+            if len(top3) < 3:
+                while len(top3) < 3:
+                    top3.append(("Ukjent", 0.0))
 
-            # Determine dominant weather type
+            oppsummering = generate_week_summary(
+                top3,
+                best_station_name,
+                best_station_fylke,
+                best_station_score,
+                old_iso.week
+            )
+
             vaertype = determine_weather_type(old_days, old_ordered)
 
             archive_entry = {
-                "ukeId": f"2026-W{iso_week:02d}",
-                "uke": f"Uke {iso_week}",
+                "ukeId": old_week_iso,
+                "uke": f"Uke {old_iso.week}",
                 "periode": f"{old_start.strftime('%d.%m')} - {old_end.strftime('%d.%m.%Y')}",
                 "versteFylke": old_winner,
-                "versteFylkeScore": old_totals[old_winner],
+                "versteFylkeScore": old_totals.get(old_winner, 0),
                 "versteStasjon": best_station_name,
                 "versteStasjonKommune": best_station_kommune,
                 "versteStasjonFylke": best_station_fylke,
@@ -1033,17 +1063,26 @@ def main():
                 "dagLabels": old_dag_labels,
                 "toppStasjoner": archive_top_stations
             }
-            store.setdefault("archive", []).append(archive_entry)
-            log.info(f"Arkivert uke {iso_week}: {old_winner} ({old_totals[old_winner]})")
 
-        # Reset for new week
+            # Fjern eventuell gammel kopi av samme uke før vi legger inn ny
+            store["archive"] = [a for a in store.get("archive", []) if a.get("ukeId") != old_week_iso]
+            store["archive"].append(archive_entry)
+            log.info(f"Arkivert {old_week_iso}: {old_winner} ({old_totals.get(old_winner, 0)})")
+
+        # Start helt ren ny uke
         store["days"] = {}
         store["station_days"] = {}
         store["current_week_start"] = week_start_str
-    elif not store.get("current_week_start"):
-        store["current_week_start"] = week_start_str
+        store["current_week_iso"] = current_week_iso
 
-    # Step 1: Get station metadata
+    elif not stored_week_start:
+        store["current_week_start"] = week_start_str
+        store["current_week_iso"] = current_week_iso
+    else:
+        # Samme uke: bare sørg for at metadata er korrekt
+        store["current_week_start"] = week_start_str
+        store["current_week_iso"] = current_week_iso
+
     stations = get_station_metadata()
     if not stations:
         log.error("No station metadata - aborting")
@@ -1051,30 +1090,23 @@ def main():
 
     station_ids = list(stations.keys())
 
-    # Step 2: Fetch P1D data
     p1d_obs = fetch_daily_p1d(date_str, station_ids)
 
-    # Step 3: Check if we have enough precipitation data from P1D
     p1d_precip_count = sum(1 for s in p1d_obs.values() if s.get("precip", 0) > 0)
     log.info(f"P1D stations with precip > 0: {p1d_precip_count}")
 
-    # Step 4: Fetch hourly data as supplement
     hourly_obs = fetch_hourly_data(date_str, station_ids)
 
-    # Step 5: Merge (P1D priority, hourly fills gaps)
     merged_obs = merge_observations(p1d_obs, hourly_obs)
 
-    # Step 6: Calculate county EI
     county_ei = compute_county_ei(merged_obs, stations)
     log.info(f"County EI: {json.dumps(county_ei, indent=2, ensure_ascii=False)}")
 
-    # Step 7: Find top stations
     top_stations = find_top_stations(merged_obs, stations, n=5)
     log.info("Top 5 stations:")
     for i, s in enumerate(top_stations):
         log.info(f"  {i+1}. {s['navn']} ({s['fylke']}): EI {s['ei']}, precip {s['nedbor']}mm")
 
-    # Step 8: Store per-station daily EI for weekly ranking
     station_day_data = {}
     for sid, data in merged_obs.items():
         if sid not in stations:
@@ -1092,7 +1124,7 @@ def main():
             "temp": round(data.get("temp_mean", 0), 1)
         }
 
-    # Step 9: IDEMPOTENT update - overwrite same day, don't append
+    # Samme dato overskrives, ikke dupliseres
     store["days"][date_str] = {
         "county_ei": county_ei,
         "top_stations": [
@@ -1102,12 +1134,13 @@ def main():
     }
     store["station_days"][date_str] = station_day_data
 
+    # Rydd opp igjen i tilfelle gammel bad state ligger igjen
+    sanitize_archive(store)
+
     log.info(f"Days in store: {sorted(store['days'].keys())}")
 
-    # Step 10: Save data store
     save_data_store(store)
 
-    # Step 11: Generate weatherData.ts
     success = generate_weather_data_ts(store, stations)
 
     if success:
