@@ -5,7 +5,7 @@
  * FREMTIDSSIKRING: For a oppdatere dashboardet med nye data,
  * erstatt kun denne filen. Designet endres ikke.
  *
- * Sist oppdatert: 15.03.2026 kl. 18:35
+ * Sist oppdatert: 15.03.2026 kl. 18:38
  * Periode sammenlagt: 14.03 - 15.03.2026 (2 dager)
  * Kilde: Frost API (frost.met.no), P1D + timesdata
  * ============================================================
@@ -17,7 +17,7 @@ export const META = {
   serieNavn: "Norges Verste Vaer",
   dagLabel: "Søndag 15.03.2026",
   sammenlagtLabel: "14.03 - 15.03.2026 (2 dager)",
-  datoOppdatert: "15.03.2026 kl. 18:35",
+  datoOppdatert: "15.03.2026 kl. 18:38",
   rapportVersjon: "v2.2 (norsk tid, live uke, ryddig arkiv, fikset uke/arkiv-logikk)",
   dagLabels: ["Lør 14", "Søn 15"],
 };
@@ -27,7 +27,7 @@ export const META = {
 export const FYLKER_DAG_FOR_DAG = [
   { navn: "Finnmark", dager: [39.8, 29.7], trend: "Markant bedring (-10.1) - lavtrykket har passert" },
   { navn: "Nordland", dager: [32.9, 31.0], trend: "Stabilt - lite endring fra i gar" },
-  { navn: "Vestland", dager: [30.1, 30.3], trend: "Stabilt - lite endring fra i gar" },
+  { navn: "Vestland", dager: [30.1, 30.4], trend: "Stabilt - lite endring fra i gar" },
   { navn: "Agder", dager: [28.6, 31.1], trend: "Noe forverring (+2.5) - ustabilt vaer fortsetter" },
   { navn: "Innlandet", dager: [29.0, 26.2], trend: "Noe bedring (-2.8) - roligere forhold" },
   { navn: "Troms", dager: [28.7, 26.3], trend: "Noe bedring (-2.4) - roligere forhold" },
@@ -47,7 +47,7 @@ export const FYLKER_DAG_FOR_DAG = [
 export const FYLKER_SAMMENLAGT = [
   { navn: "Finnmark", total: 69.5, iDag: 29.7, endringFraIGar: -10.1, plasseringEndring: 0 },
   { navn: "Nordland", total: 63.9, iDag: 31.0, endringFraIGar: -1.9, plasseringEndring: 0 },
-  { navn: "Vestland", total: 60.4, iDag: 30.3, endringFraIGar: 0.2, plasseringEndring: 0 },
+  { navn: "Vestland", total: 60.5, iDag: 30.4, endringFraIGar: 0.3, plasseringEndring: 0 },
   { navn: "Agder", total: 59.7, iDag: 31.1, endringFraIGar: 2.5, plasseringEndring: 2 },
   { navn: "Innlandet", total: 55.2, iDag: 26.2, endringFraIGar: -2.8, plasseringEndring: -1 },
   { navn: "Troms", total: 55.0, iDag: 26.3, endringFraIGar: -2.4, plasseringEndring: -1 },
@@ -69,7 +69,7 @@ export const STASJONER_PERIODE = [
   { navn: "ÅNSTADBLÅHEIA", kommune: "SORTLAND", fylke: "Nordland", ei: 64.4, vindkast: 26.5, nedbor: 0, temp: 0.7, farevarsel: "oransje" },
   { navn: "TROLLEDALSEGGA", kommune: "STAD", fylke: "Vestland", ei: 60.2, vindkast: 25.4, nedbor: 0, temp: -2.7, farevarsel: "oransje" },
   { navn: "KRÅKENES", kommune: "KINN", fylke: "Vestland", ei: 59.4, vindkast: 29.9, nedbor: 0, temp: 5.2, farevarsel: "gul" },
-  { navn: "FEDJE", kommune: "FEDJE", fylke: "Vestland", ei: 59.2, vindkast: 30.0, nedbor: 0, temp: 5.7, farevarsel: "gul" },
+  { navn: "JUVVASSHØE", kommune: "LOM", fylke: "Innlandet", ei: 59.2, vindkast: 25.9, nedbor: 0, temp: -8.0, farevarsel: "gul" },
 ];
 
 // ---- UKENS TOPP 5 STASJONER (sammenlagt) ----
