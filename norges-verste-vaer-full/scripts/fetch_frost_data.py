@@ -24,6 +24,7 @@ import json
 import logging
 import argparse
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from collections import defaultdict
 
 import requests
@@ -66,6 +67,15 @@ DAY_NAMES_NO = ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag", "
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 log = logging.getLogger("NVV")
+
+OSLO_TZ = ZoneInfo("Europe/Oslo")
+
+def oslo_now():
+    return datetime.now(OSLO_TZ)
+
+def default_target_date():
+    # Dashboardet skal vise norsk dato, ikke UTC-forsinket dato.
+    return oslo_now().date()
 
 
 # ---- DATA STORE ----
@@ -133,6 +143,19 @@ def sanitize_archive(store):
             return (0, 0)
 
     store["archive"] = sorted(cleaned.values(), key=sort_key)
+
+
+def prune_current_week_days(store):
+    """Keep only dates that belong to the currently active week."""
+    week_start_str = store.get("current_week_start")
+    if not week_start_str:
+        return
+
+    ws = datetime.strptime(week_start_str, "%Y-%m-%d").date()
+    allowed = { (ws + timedelta(days=i)).strftime("%Y-%m-%d") for i in range(7) }
+
+    store["days"] = {k: v for k, v in store.get("days", {}).items() if k in allowed}
+    store["station_days"] = {k: v for k, v in store.get("station_days", {}).items() if k in allowed}
 
 
 # ---- FROST API ----
@@ -532,14 +555,15 @@ def generate_station_description(s):
     peak_idx = dager.index(peak_val)
     peak_day = DAY_LABELS_NO[peak_idx] if peak_idx < len(DAY_LABELS_NO) else f"Dag {peak_idx+1}"
     avg = s["totalEi"] / max(s["days_count"], 1)
+    prefix = "sa langt denne uka" if s.get("days_count", 0) < 7 else "hele uken"
 
     parts = []
     if avg > 60:
-        parts.append(f"Ekstremt vaer hele uken med snitt {avg:.0f} EI per dag.")
+        parts.append(f"Ekstremt vaer {prefix} med snitt {avg:.0f} EI per dag.")
     elif avg > 40:
-        parts.append(f"Jevnt darlig vaer med snitt {avg:.0f} EI per dag.")
+        parts.append(f"Jevnt darlig vaer {prefix} med snitt {avg:.0f} EI per dag.")
     else:
-        parts.append(f"Varierende forhold med snitt {avg:.0f} EI per dag.")
+        parts.append(f"Varierende forhold {prefix} med snitt {avg:.0f} EI per dag.")
 
     parts.append(f"Toppdag {peak_day} med {peak_val:.1f} EI.")
 
@@ -638,7 +662,7 @@ def generate_weather_data_ts(store, stations):
     latest_d = datetime.strptime(latest_date, "%Y-%m-%d").date()
     day_name = DAY_NAMES_NO[latest_d.weekday()]
     date_str_no = latest_d.strftime("%d.%m.%Y")
-    now_str = datetime.now(timezone.utc).strftime("%d.%m.%Y kl. %H:%M")
+    now_str = oslo_now().strftime("%d.%m.%Y kl. %H:%M")
     first_d = datetime.strptime(ordered_dates[0], "%Y-%m-%d").date()
     period_str = f"{first_d.strftime('%d.%m')} - {latest_d.strftime('%d.%m.%Y')} ({len(ordered_dates)} dager)"
 
@@ -679,7 +703,7 @@ def generate_weather_data_ts(store, stations):
     lines.append(f'  dagLabel: "{day_name} {date_str_no}",')
     lines.append(f'  sammenlagtLabel: "{period_str}",')
     lines.append(f'  datoOppdatert: "{now_str}",')
-    lines.append('  rapportVersjon: "v2.1 (Frost API P1D + timesdata, auto-oppdatering, fikset uke/arkiv-logikk)",')
+    lines.append('  rapportVersjon: "v2.2 (norsk tid, live uke, ryddig arkiv, fikset uke/arkiv-logikk)",')
     labels_str = ", ".join(f'"{l}"' for l in dag_labels)
     lines.append(f'  dagLabels: [{labels_str}],')
     lines.append('};')
@@ -763,6 +787,20 @@ def generate_weather_data_ts(store, stations):
     lines.append('};')
     lines.append('')
 
+    lines.append('// ---- AKTUELL UKE / SIST FULLFORTE UKE ----')
+    lines.append('')
+    lines.append('export const AKTUELL_UKE = {')
+    lines.append(f'  ukeId: "{current_week_iso}",')
+    lines.append(f'  uke: "Uke {latest_d.isocalendar().week}",')
+    lines.append(f'  fraDato: "{first_d.strftime("%Y-%m-%d")}",')
+    lines.append(f'  tilDato: "{latest_d.strftime("%Y-%m-%d")}",')
+    lines.append(f'  periode: "{period_str}",')
+    lines.append(f'  dagerRegistrert: {len(ordered_dates)},')
+    lines.append(f'  versteFylke: "{overall_leader}",')
+    lines.append(f'  versteFylkeScore: {sorted_total[0][1]},')
+    lines.append('};')
+    lines.append('')
+
     lines.append('// ---- ARKIV (fullforte uker) ----')
     lines.append('')
     lines.append('export interface ArkivUke {')
@@ -837,6 +875,9 @@ def generate_weather_data_ts(store, stations):
         lines.append('];')
     else:
         lines.append('export const ARKIV: ArkivUke[] = [];')
+    lines.append('')
+
+    lines.append('export const SIST_FULLFORTE_UKE: ArkivUke | null = ARKIV.length ? ARKIV[ARKIV.length - 1] : null;')
     lines.append('')
 
     lines.append('// ---- HJELPEFUNKSJONER ----')
@@ -915,7 +956,7 @@ def main():
     if args.date:
         target_date = datetime.strptime(args.date, "%Y-%m-%d").date()
     else:
-        target_date = datetime.now(timezone.utc).date() - timedelta(days=1)
+        target_date = default_target_date()
 
     date_str = target_date.strftime("%Y-%m-%d")
     week_start = get_week_start(target_date)
@@ -930,6 +971,11 @@ def main():
 
     # Rydd opp gammel dritt før vi gjør noe annet
     sanitize_archive(store)
+
+    stations = get_station_metadata()
+    if not stations:
+        log.error("No station metadata - aborting")
+        sys.exit(1)
 
     stored_week_start = store.get("current_week_start")
     stored_week_iso = store.get("current_week_iso")
@@ -1083,10 +1129,7 @@ def main():
         store["current_week_start"] = week_start_str
         store["current_week_iso"] = current_week_iso
 
-    stations = get_station_metadata()
-    if not stations:
-        log.error("No station metadata - aborting")
-        sys.exit(1)
+    prune_current_week_days(store)
 
     station_ids = list(stations.keys())
 
