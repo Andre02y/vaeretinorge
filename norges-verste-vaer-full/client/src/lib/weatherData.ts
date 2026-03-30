@@ -5,7 +5,7 @@
  * FREMTIDSSIKRING: For a oppdatere dashboardet med nye data,
  * erstatt kun denne filen. Designet endres ikke.
  *
- * Sist oppdatert: 30.03.2026 kl. 09:15
+ * Sist oppdatert: 30.03.2026 kl. 12:06
  * Periode sammenlagt: 30.03 - 30.03.2026 (1 dager)
  * Kilde: Frost API (frost.met.no), P1D + timesdata
  * ============================================================
@@ -17,7 +17,7 @@ export const META = {
   serieNavn: "Norges Verste Vaer",
   dagLabel: "Mandag 30.03.2026",
   sammenlagtLabel: "30.03 - 30.03.2026 (1 dager)",
-  datoOppdatert: "30.03.2026 kl. 09:15",
+  datoOppdatert: "30.03.2026 kl. 12:06",
   rapportVersjon: "v2.2 (norsk tid, live uke, ryddig arkiv, fikset uke/arkiv-logikk)",
   dagLabels: ["Man 30"],
 };
@@ -26,18 +26,18 @@ export const META = {
 
 export const FYLKER_DAG_FOR_DAG = [
   { navn: "Oslo", dager: [35.6], trend: "Kraftig forverring (+35.6) - okt vind og/eller nedbor" },
-  { navn: "Østfold", dager: [31.3], trend: "Kraftig forverring (+31.3) - okt vind og/eller nedbor" },
-  { navn: "Nordland", dager: [30.9], trend: "Kraftig forverring (+30.9) - okt vind og/eller nedbor" },
-  { navn: "Finnmark", dager: [30.3], trend: "Kraftig forverring (+30.3) - okt vind og/eller nedbor" },
-  { navn: "Agder", dager: [29.9], trend: "Kraftig forverring (+29.9) - okt vind og/eller nedbor" },
-  { navn: "Innlandet", dager: [29.6], trend: "Kraftig forverring (+29.6) - okt vind og/eller nedbor" },
-  { navn: "Vestland", dager: [29.1], trend: "Kraftig forverring (+29.1) - okt vind og/eller nedbor" },
+  { navn: "Agder", dager: [32.4], trend: "Kraftig forverring (+32.4) - okt vind og/eller nedbor" },
+  { navn: "Nordland", dager: [31.7], trend: "Kraftig forverring (+31.7) - okt vind og/eller nedbor" },
+  { navn: "Østfold", dager: [31.6], trend: "Kraftig forverring (+31.6) - okt vind og/eller nedbor" },
+  { navn: "Finnmark", dager: [31.1], trend: "Kraftig forverring (+31.1) - okt vind og/eller nedbor" },
+  { navn: "Vestland", dager: [29.9], trend: "Kraftig forverring (+29.9) - okt vind og/eller nedbor" },
+  { navn: "Innlandet", dager: [29.4], trend: "Kraftig forverring (+29.4) - okt vind og/eller nedbor" },
+  { navn: "Rogaland", dager: [29.1], trend: "Kraftig forverring (+29.1) - okt vind og/eller nedbor" },
   { navn: "Buskerud", dager: [28.4], trend: "Kraftig forverring (+28.4) - okt vind og/eller nedbor" },
-  { navn: "Rogaland", dager: [28.3], trend: "Kraftig forverring (+28.3) - okt vind og/eller nedbor" },
-  { navn: "Telemark", dager: [27.5], trend: "Kraftig forverring (+27.5) - okt vind og/eller nedbor" },
-  { navn: "Troms", dager: [26.6], trend: "Kraftig forverring (+26.6) - okt vind og/eller nedbor" },
-  { navn: "Møre og Romsdal", dager: [24.9], trend: "Kraftig forverring (+24.9) - okt vind og/eller nedbor" },
-  { navn: "Trøndelag", dager: [23.9], trend: "Kraftig forverring (+23.9) - okt vind og/eller nedbor" },
+  { navn: "Troms", dager: [27.3], trend: "Kraftig forverring (+27.3) - okt vind og/eller nedbor" },
+  { navn: "Telemark", dager: [27.1], trend: "Kraftig forverring (+27.1) - okt vind og/eller nedbor" },
+  { navn: "Møre og Romsdal", dager: [24.6], trend: "Kraftig forverring (+24.6) - okt vind og/eller nedbor" },
+  { navn: "Trøndelag", dager: [23.1], trend: "Kraftig forverring (+23.1) - okt vind og/eller nedbor" },
   { navn: "Vestfold", dager: [0.0], trend: "Stabilt - lite endring fra i gar" },
   { navn: "Akershus", dager: [0.0], trend: "Stabilt - lite endring fra i gar" },
 ];
@@ -46,18 +46,18 @@ export const FYLKER_DAG_FOR_DAG = [
 
 export const FYLKER_SAMMENLAGT = [
   { navn: "Oslo", total: 35.6, iDag: 35.6, endringFraIGar: 35.6, plasseringEndring: 0 },
-  { navn: "Østfold", total: 31.3, iDag: 31.3, endringFraIGar: 31.3, plasseringEndring: 0 },
-  { navn: "Nordland", total: 30.9, iDag: 30.9, endringFraIGar: 30.9, plasseringEndring: 0 },
-  { navn: "Finnmark", total: 30.3, iDag: 30.3, endringFraIGar: 30.3, plasseringEndring: 0 },
-  { navn: "Agder", total: 29.9, iDag: 29.9, endringFraIGar: 29.9, plasseringEndring: 0 },
-  { navn: "Innlandet", total: 29.6, iDag: 29.6, endringFraIGar: 29.6, plasseringEndring: 0 },
-  { navn: "Vestland", total: 29.1, iDag: 29.1, endringFraIGar: 29.1, plasseringEndring: 0 },
+  { navn: "Agder", total: 32.4, iDag: 32.4, endringFraIGar: 32.4, plasseringEndring: 0 },
+  { navn: "Nordland", total: 31.7, iDag: 31.7, endringFraIGar: 31.7, plasseringEndring: 0 },
+  { navn: "Østfold", total: 31.6, iDag: 31.6, endringFraIGar: 31.6, plasseringEndring: 0 },
+  { navn: "Finnmark", total: 31.1, iDag: 31.1, endringFraIGar: 31.1, plasseringEndring: 0 },
+  { navn: "Vestland", total: 29.9, iDag: 29.9, endringFraIGar: 29.9, plasseringEndring: 0 },
+  { navn: "Innlandet", total: 29.4, iDag: 29.4, endringFraIGar: 29.4, plasseringEndring: 0 },
+  { navn: "Rogaland", total: 29.1, iDag: 29.1, endringFraIGar: 29.1, plasseringEndring: 0 },
   { navn: "Buskerud", total: 28.4, iDag: 28.4, endringFraIGar: 28.4, plasseringEndring: 0 },
-  { navn: "Rogaland", total: 28.3, iDag: 28.3, endringFraIGar: 28.3, plasseringEndring: 0 },
-  { navn: "Telemark", total: 27.5, iDag: 27.5, endringFraIGar: 27.5, plasseringEndring: 0 },
-  { navn: "Troms", total: 26.6, iDag: 26.6, endringFraIGar: 26.6, plasseringEndring: 0 },
-  { navn: "Møre og Romsdal", total: 24.9, iDag: 24.9, endringFraIGar: 24.9, plasseringEndring: 0 },
-  { navn: "Trøndelag", total: 23.9, iDag: 23.9, endringFraIGar: 23.9, plasseringEndring: 0 },
+  { navn: "Troms", total: 27.3, iDag: 27.3, endringFraIGar: 27.3, plasseringEndring: 0 },
+  { navn: "Telemark", total: 27.1, iDag: 27.1, endringFraIGar: 27.1, plasseringEndring: 0 },
+  { navn: "Møre og Romsdal", total: 24.6, iDag: 24.6, endringFraIGar: 24.6, plasseringEndring: 0 },
+  { navn: "Trøndelag", total: 23.1, iDag: 23.1, endringFraIGar: 23.1, plasseringEndring: 0 },
   { navn: "Vestfold", total: 0.0, iDag: 0.0, endringFraIGar: 0.0, plasseringEndring: 0 },
   { navn: "Akershus", total: 0.0, iDag: 0.0, endringFraIGar: 0.0, plasseringEndring: 0 },
 ];
@@ -65,16 +65,27 @@ export const FYLKER_SAMMENLAGT = [
 // ---- TOPP 5 STASJONER MANDAG 30.03.2026 ----
 
 export const STASJONER_PERIODE = [
+  { navn: "KVAMSKOGEN - JONSHØGDI", kommune: "KVAM", fylke: "Vestland", ei: 61.9, vindkast: 25.9, nedbor: 22.5, temp: 0.1, farevarsel: "oransje" },
   { navn: "FINNESVATNET", kommune: "VARDØ", fylke: "Finnmark", ei: 57.4, vindkast: 14.4, nedbor: 0.1, temp: 0.5, farevarsel: "gul" },
-  { navn: "TRYVANNSHØGDA", kommune: "OSLO", fylke: "Oslo", ei: 56.8, vindkast: 16.9, nedbor: 14.9, temp: 0.9, farevarsel: "gul" },
-  { navn: "KAPPFJELLET", kommune: "GRANE", fylke: "Nordland", ei: 56.0, vindkast: 20.5, nedbor: 0, temp: -3.6, farevarsel: "gul" },
-  { navn: "GULLFJELLET", kommune: "BERGEN", fylke: "Vestland", ei: 55.6, vindkast: 6.3, nedbor: 34.4, temp: 1.0, farevarsel: "gul" },
-  { navn: "KVAMSKOGEN - JONSHØGDI", kommune: "KVAM", fylke: "Vestland", ei: 54.7, vindkast: 9.6, nedbor: 22.5, temp: 0.1, farevarsel: "gul" },
+  { navn: "GULLFJELLET", kommune: "BERGEN", fylke: "Vestland", ei: 57.1, vindkast: 9.4, nedbor: 34.4, temp: 1.0, farevarsel: "gul" },
+  { navn: "KAPPFJELLET", kommune: "GRANE", fylke: "Nordland", ei: 56.9, vindkast: 20.5, nedbor: 0, temp: -3.6, farevarsel: "gul" },
+  { navn: "TRYVANNSHØGDA", kommune: "OSLO", fylke: "Oslo", ei: 56.2, vindkast: 16.9, nedbor: 14.9, temp: 0.9, farevarsel: "gul" },
 ];
 
 // ---- UKENS TOPP 5 STASJONER (sammenlagt) ----
 
 export const STASJONER_UKE = [
+  {
+    navn: "KVAMSKOGEN - JONSHØGDI",
+    kommune: "KVAM",
+    fylke: "Vestland",
+    totalEi: 61.9,
+    gustMax: 25.9,
+    precipTotal: 22.5,
+    tempMin: 0.1,
+    dager: [61.9, 0, 0, 0, 0, 0, 0],
+    beskrivelse: "Ekstremt vaer sa langt denne uka med snitt 62 EI per dag. Toppdag Man med 61.9 EI. Kraftige vindkast opp til 25.9 m/s. Mye nedbor med totalt 22.5 mm."
+  },
   {
     navn: "FINNESVATNET",
     kommune: "VARDØ",
@@ -87,48 +98,37 @@ export const STASJONER_UKE = [
     beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 57 EI per dag. Toppdag Man med 57.4 EI."
   },
   {
-    navn: "TRYVANNSHØGDA",
-    kommune: "OSLO",
-    fylke: "Oslo",
-    totalEi: 56.8,
-    gustMax: 16.9,
-    precipTotal: 14.9,
-    tempMin: 0.9,
-    dager: [56.8, 0, 0, 0, 0, 0, 0],
-    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 57 EI per dag. Toppdag Man med 56.8 EI."
+    navn: "GULLFJELLET",
+    kommune: "BERGEN",
+    fylke: "Vestland",
+    totalEi: 57.1,
+    gustMax: 9.4,
+    precipTotal: 34.4,
+    tempMin: 1.0,
+    dager: [57.1, 0, 0, 0, 0, 0, 0],
+    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 57 EI per dag. Toppdag Man med 57.1 EI. Mye nedbor med totalt 34.4 mm."
   },
   {
     navn: "KAPPFJELLET",
     kommune: "GRANE",
     fylke: "Nordland",
-    totalEi: 56.0,
+    totalEi: 56.9,
     gustMax: 20.5,
     precipTotal: 0,
     tempMin: -3.6,
-    dager: [56.0, 0, 0, 0, 0, 0, 0],
-    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 56 EI per dag. Toppdag Man med 56.0 EI."
+    dager: [56.9, 0, 0, 0, 0, 0, 0],
+    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 57 EI per dag. Toppdag Man med 56.9 EI."
   },
   {
-    navn: "GULLFJELLET",
-    kommune: "BERGEN",
-    fylke: "Vestland",
-    totalEi: 55.6,
-    gustMax: 6.3,
-    precipTotal: 34.4,
-    tempMin: 1.0,
-    dager: [55.6, 0, 0, 0, 0, 0, 0],
-    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 56 EI per dag. Toppdag Man med 55.6 EI. Mye nedbor med totalt 34.4 mm."
-  },
-  {
-    navn: "KVAMSKOGEN - JONSHØGDI",
-    kommune: "KVAM",
-    fylke: "Vestland",
-    totalEi: 54.7,
-    gustMax: 9.6,
-    precipTotal: 22.5,
-    tempMin: 0.1,
-    dager: [54.7, 0, 0, 0, 0, 0, 0],
-    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 55 EI per dag. Toppdag Man med 54.7 EI. Mye nedbor med totalt 22.5 mm."
+    navn: "TRYVANNSHØGDA",
+    kommune: "OSLO",
+    fylke: "Oslo",
+    totalEi: 56.2,
+    gustMax: 16.9,
+    precipTotal: 14.9,
+    tempMin: 0.9,
+    dager: [56.2, 0, 0, 0, 0, 0, 0],
+    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 56 EI per dag. Toppdag Man med 56.2 EI."
   },
 ];
 
@@ -137,7 +137,7 @@ export const STASJONER_UKE = [
 export const TRONSKIFTE = {
   aktiv: false,
   tittel: "OSLO LEDER!",
-  beskrivelse: "Oslo leder sammenlagt med 35.6 poeng - 4.3 poeng foran Østfold (31.3).",
+  beskrivelse: "Oslo leder sammenlagt med 35.6 poeng - 3.2 poeng foran Agder (32.4).",
   gammelLeder: "Oslo",
   nyLeder: "Oslo",
 };
