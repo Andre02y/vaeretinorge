@@ -5,7 +5,7 @@
  * FREMTIDSSIKRING: For a oppdatere dashboardet med nye data,
  * erstatt kun denne filen. Designet endres ikke.
  *
- * Sist oppdatert: 09.05.2026 kl. 12:00
+ * Sist oppdatert: 09.05.2026 kl. 14:49
  * Periode sammenlagt: 04.05 - 09.05.2026 (6 dager)
  * Kilde: Frost API (frost.met.no), P1D + timesdata
  * ============================================================
@@ -17,7 +17,7 @@ export const META = {
   serieNavn: "Norges Verste Vaer",
   dagLabel: "Lørdag 09.05.2026",
   sammenlagtLabel: "04.05 - 09.05.2026 (6 dager)",
-  datoOppdatert: "09.05.2026 kl. 12:00",
+  datoOppdatert: "09.05.2026 kl. 14:49",
   rapportVersjon: "v2.2 (norsk tid, live uke, ryddig arkiv, fikset uke/arkiv-logikk)",
   dagLabels: ["Man 04", "Tir 05", "Ons 06", "Tor 07", "Fre 08", "Lør 09"],
 };
@@ -25,19 +25,19 @@ export const META = {
 // ---- DAG-FOR-DAG EI PER FYLKE ----
 
 export const FYLKER_DAG_FOR_DAG = [
-  { navn: "Nordland", dager: [33.3, 33.1, 30.4, 29.3, 26.7, 22.5], trend: "Noe bedring (-4.2) - roligere forhold" },
-  { navn: "Trøndelag", dager: [42.9, 32.3, 29.2, 24.6, 20.9, 16.7], trend: "Noe bedring (-4.2) - roligere forhold" },
-  { navn: "Finnmark", dager: [29.1, 29.8, 28.5, 25.9, 24.7, 26.0], trend: "Stabilt - lite endring fra i gar" },
-  { navn: "Møre og Romsdal", dager: [33.7, 34.3, 28.4, 24.4, 20.2, 22.1], trend: "Stabilt - lite endring fra i gar" },
+  { navn: "Nordland", dager: [33.3, 33.1, 30.4, 29.3, 26.7, 22.4], trend: "Noe bedring (-4.3) - roligere forhold" },
+  { navn: "Trøndelag", dager: [42.9, 32.3, 29.2, 24.6, 20.9, 17.0], trend: "Noe bedring (-3.9) - roligere forhold" },
+  { navn: "Finnmark", dager: [29.1, 29.8, 28.5, 25.9, 24.7, 27.0], trend: "Noe forverring (+2.3) - ustabilt vaer fortsetter" },
+  { navn: "Møre og Romsdal", dager: [33.7, 34.3, 28.4, 24.4, 20.2, 22.7], trend: "Noe forverring (+2.5) - ustabilt vaer fortsetter" },
   { navn: "Troms", dager: [28.0, 25.4, 25.0, 24.5, 24.4, 25.8], trend: "Stabilt - lite endring fra i gar" },
-  { navn: "Vestland", dager: [27.4, 29.4, 26.8, 22.6, 20.7, 22.9], trend: "Noe forverring (+2.2) - ustabilt vaer fortsetter" },
-  { navn: "Innlandet", dager: [23.8, 26.7, 24.8, 22.3, 21.4, 19.4], trend: "Noe bedring (-2.0) - roligere forhold" },
-  { navn: "Oslo", dager: [19.3, 27.1, 19.8, 18.7, 18.9, 18.0], trend: "Stabilt - lite endring fra i gar" },
-  { navn: "Rogaland", dager: [21.4, 22.4, 21.0, 18.2, 18.6, 16.9], trend: "Stabilt - lite endring fra i gar" },
-  { navn: "Agder", dager: [21.3, 21.5, 20.6, 19.2, 18.7, 16.8], trend: "Stabilt - lite endring fra i gar" },
+  { navn: "Vestland", dager: [27.4, 29.4, 26.8, 22.6, 20.7, 23.2], trend: "Noe forverring (+2.5) - ustabilt vaer fortsetter" },
+  { navn: "Innlandet", dager: [23.8, 26.7, 24.8, 22.3, 21.4, 19.8], trend: "Stabilt - lite endring fra i gar" },
+  { navn: "Oslo", dager: [19.3, 27.1, 19.8, 18.7, 18.9, 18.2], trend: "Stabilt - lite endring fra i gar" },
+  { navn: "Rogaland", dager: [21.4, 22.4, 21.0, 18.2, 18.6, 16.7], trend: "Stabilt - lite endring fra i gar" },
+  { navn: "Agder", dager: [21.3, 21.5, 20.6, 19.2, 18.7, 17.0], trend: "Stabilt - lite endring fra i gar" },
   { navn: "Buskerud", dager: [18.4, 21.8, 19.6, 19.1, 17.6, 16.3], trend: "Stabilt - lite endring fra i gar" },
-  { navn: "Telemark", dager: [18.4, 19.3, 19.9, 18.4, 18.2, 16.5], trend: "Stabilt - lite endring fra i gar" },
-  { navn: "Østfold", dager: [19.0, 18.8, 18.7, 17.3, 16.6, 16.0], trend: "Stabilt - lite endring fra i gar" },
+  { navn: "Telemark", dager: [18.4, 19.3, 19.9, 18.4, 18.2, 16.7], trend: "Stabilt - lite endring fra i gar" },
+  { navn: "Østfold", dager: [19.0, 18.8, 18.7, 17.3, 16.6, 16.2], trend: "Stabilt - lite endring fra i gar" },
   { navn: "Vestfold", dager: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], trend: "Stabilt - lite endring fra i gar" },
   { navn: "Akershus", dager: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], trend: "Stabilt - lite endring fra i gar" },
 ];
@@ -45,19 +45,19 @@ export const FYLKER_DAG_FOR_DAG = [
 // ---- SAMMENLAGT ----
 
 export const FYLKER_SAMMENLAGT = [
-  { navn: "Nordland", total: 175.3, iDag: 22.5, endringFraIGar: -4.2, plasseringEndring: 0 },
-  { navn: "Trøndelag", total: 166.6, iDag: 16.7, endringFraIGar: -4.2, plasseringEndring: 0 },
-  { navn: "Finnmark", total: 164.0, iDag: 26.0, endringFraIGar: 1.3, plasseringEndring: 1 },
-  { navn: "Møre og Romsdal", total: 163.1, iDag: 22.1, endringFraIGar: 1.9, plasseringEndring: -1 },
+  { navn: "Nordland", total: 175.2, iDag: 22.4, endringFraIGar: -4.3, plasseringEndring: 0 },
+  { navn: "Trøndelag", total: 166.9, iDag: 17.0, endringFraIGar: -3.9, plasseringEndring: 0 },
+  { navn: "Finnmark", total: 165.0, iDag: 27.0, endringFraIGar: 2.3, plasseringEndring: 1 },
+  { navn: "Møre og Romsdal", total: 163.7, iDag: 22.7, endringFraIGar: 2.5, plasseringEndring: -1 },
   { navn: "Troms", total: 153.1, iDag: 25.8, endringFraIGar: 1.4, plasseringEndring: 0 },
-  { navn: "Vestland", total: 149.8, iDag: 22.9, endringFraIGar: 2.2, plasseringEndring: 0 },
-  { navn: "Innlandet", total: 138.4, iDag: 19.4, endringFraIGar: -2.0, plasseringEndring: 0 },
-  { navn: "Oslo", total: 121.8, iDag: 18.0, endringFraIGar: -0.9, plasseringEndring: 0 },
-  { navn: "Rogaland", total: 118.5, iDag: 16.9, endringFraIGar: -1.7, plasseringEndring: 0 },
-  { navn: "Agder", total: 118.1, iDag: 16.8, endringFraIGar: -1.9, plasseringEndring: 0 },
+  { navn: "Vestland", total: 150.1, iDag: 23.2, endringFraIGar: 2.5, plasseringEndring: 0 },
+  { navn: "Innlandet", total: 138.8, iDag: 19.8, endringFraIGar: -1.6, plasseringEndring: 0 },
+  { navn: "Oslo", total: 122.0, iDag: 18.2, endringFraIGar: -0.7, plasseringEndring: 0 },
+  { navn: "Rogaland", total: 118.3, iDag: 16.7, endringFraIGar: -1.9, plasseringEndring: 0 },
+  { navn: "Agder", total: 118.3, iDag: 17.0, endringFraIGar: -1.7, plasseringEndring: 0 },
   { navn: "Buskerud", total: 112.8, iDag: 16.3, endringFraIGar: -1.3, plasseringEndring: 0 },
-  { navn: "Telemark", total: 110.7, iDag: 16.5, endringFraIGar: -1.7, plasseringEndring: 0 },
-  { navn: "Østfold", total: 106.4, iDag: 16.0, endringFraIGar: -0.6, plasseringEndring: 0 },
+  { navn: "Telemark", total: 110.9, iDag: 16.7, endringFraIGar: -1.5, plasseringEndring: 0 },
+  { navn: "Østfold", total: 106.6, iDag: 16.2, endringFraIGar: -0.4, plasseringEndring: 0 },
   { navn: "Vestfold", total: 0.0, iDag: 0.0, endringFraIGar: 0.0, plasseringEndring: 0 },
   { navn: "Akershus", total: 0.0, iDag: 0.0, endringFraIGar: 0.0, plasseringEndring: 0 },
 ];
@@ -65,11 +65,11 @@ export const FYLKER_SAMMENLAGT = [
 // ---- TOPP 5 STASJONER LØRDAG 09.05.2026 ----
 
 export const STASJONER_PERIODE = [
-  { navn: "FOLGEFONNA SKISENTER TOPP", kommune: "ULLENSVANG", fylke: "Vestland", ei: 59.4, vindkast: 21.5, nedbor: 0, temp: -0.1, farevarsel: "gul" },
-  { navn: "RV13 VIKAFJELL", kommune: "VIK", fylke: "Vestland", ei: 57.8, vindkast: 0, nedbor: 2.6, temp: -21.5, farevarsel: "gul" },
-  { navn: "TROLLEDALSEGGA", kommune: "STAD", fylke: "Vestland", ei: 56.8, vindkast: 23.0, nedbor: 0, temp: 1.3, farevarsel: "gul" },
-  { navn: "KRÅKENES", kommune: "KINN", fylke: "Vestland", ei: 56.4, vindkast: 26.2, nedbor: 0, temp: 8.4, farevarsel: "gul" },
-  { navn: "NORDNESFJELLET - JETTANII", kommune: "KÅFJORD", fylke: "Troms", ei: 56.3, vindkast: 12.5, nedbor: 2.9, temp: 0.6, farevarsel: "gul" },
+  { navn: "RV13 VIKAFJELL", kommune: "VIK", fylke: "Vestland", ei: 61.7, vindkast: 0, nedbor: 4.2, temp: -25.5, farevarsel: "oransje" },
+  { navn: "JUVVASSHØE", kommune: "LOM", fylke: "Innlandet", ei: 57.9, vindkast: 23.7, nedbor: 0, temp: -3.1, farevarsel: "gul" },
+  { navn: "KRÅKENES", kommune: "KINN", fylke: "Vestland", ei: 57.5, vindkast: 26.2, nedbor: 0, temp: 8.4, farevarsel: "gul" },
+  { navn: "TROLLEDALSEGGA", kommune: "STAD", fylke: "Vestland", ei: 56.3, vindkast: 23.0, nedbor: 0, temp: 1.3, farevarsel: "gul" },
+  { navn: "NORDNESFJELLET - JETTANII", kommune: "KÅFJORD", fylke: "Troms", ei: 55.5, vindkast: 12.5, nedbor: 2.9, temp: 0.6, farevarsel: "gul" },
 ];
 
 // ---- UKENS TOPP 5 STASJONER (sammenlagt) ----
@@ -79,56 +79,56 @@ export const STASJONER_UKE = [
     navn: "FV705 LANGSVOLA",
     kommune: "TYDAL",
     fylke: "Trøndelag",
-    totalEi: 1728.9,
+    totalEi: 1729.0,
     gustMax: 0,
     precipTotal: 3110.3,
     tempMin: -2.9,
-    dager: [1597.7, 31.1, 25.5, 24.2, 25.6, 24.8, 0],
+    dager: [1597.7, 31.1, 25.5, 24.2, 25.6, 24.9, 0],
     beskrivelse: "Ekstremt vaer sa langt denne uka med snitt 288 EI per dag. Toppdag Man med 1597.7 EI. Mye nedbor med totalt 3110.3 mm."
   },
   {
     navn: "JUVVASSHØE",
     kommune: "LOM",
     fylke: "Innlandet",
-    totalEi: 315.6,
+    totalEi: 318.0,
     gustMax: 26.3,
     precipTotal: 0,
     tempMin: -10.8,
-    dager: [61.9, 55.8, 48.8, 42.3, 51.3, 55.5, 0],
+    dager: [61.9, 55.8, 48.8, 42.3, 51.3, 57.9, 0],
     beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 53 EI per dag. Toppdag Man med 61.9 EI. Kraftige vindkast opp til 26.3 m/s. Bitende kulde ned til -10.8 grader C."
   },
   {
     navn: "TROLLEDALSEGGA",
     kommune: "STAD",
     fylke: "Vestland",
-    totalEi: 299.7,
+    totalEi: 299.2,
     gustMax: 23.0,
     precipTotal: 0,
     tempMin: -5.7,
-    dager: [54.9, 47.3, 49.0, 43.4, 48.3, 56.8, 0],
-    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 50 EI per dag. Toppdag Lør med 56.8 EI. Bitende kulde ned til -5.7 grader C."
-  },
-  {
-    navn: "RV15 STRYNEFJELL-KVITENOVA",
-    kommune: "STRYN",
-    fylke: "Vestland",
-    totalEi: 289.0,
-    gustMax: 0,
-    precipTotal: 46.3,
-    tempMin: -8.1,
-    dager: [63.3, 44.7, 36.9, 33.6, 56.2, 54.3, 0],
-    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 48 EI per dag. Toppdag Man med 63.3 EI. Mye nedbor med totalt 46.3 mm. Bitende kulde ned til -8.1 grader C."
+    dager: [54.9, 47.3, 49.0, 43.4, 48.3, 56.3, 0],
+    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 50 EI per dag. Toppdag Lør med 56.3 EI. Bitende kulde ned til -5.7 grader C."
   },
   {
     navn: "FOLGEFONNA SKISENTER TOPP",
     kommune: "ULLENSVANG",
     fylke: "Vestland",
-    totalEi: 287.4,
+    totalEi: 283.3,
     gustMax: 28.1,
     precipTotal: 0,
     tempMin: -7.0,
-    dager: [50.3, 46.0, 37.5, 36.8, 57.4, 59.4, 0],
-    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 48 EI per dag. Toppdag Lør med 59.4 EI. Kraftige vindkast opp til 28.1 m/s. Bitende kulde ned til -7.0 grader C."
+    dager: [50.3, 46.0, 37.5, 36.8, 57.4, 55.3, 0],
+    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 47 EI per dag. Toppdag Fre med 57.4 EI. Kraftige vindkast opp til 28.1 m/s. Bitende kulde ned til -7.0 grader C."
+  },
+  {
+    navn: "JUVFLYE - KLIMAPARK 2469",
+    kommune: "LOM",
+    fylke: "Innlandet",
+    totalEi: 282.4,
+    gustMax: 26.3,
+    precipTotal: 0,
+    tempMin: -10.5,
+    dager: [54.9, 51.8, 44.8, 39.9, 43.3, 47.7, 0],
+    beskrivelse: "Jevnt darlig vaer sa langt denne uka med snitt 47 EI per dag. Toppdag Man med 54.9 EI. Kraftige vindkast opp til 26.3 m/s. Bitende kulde ned til -10.5 grader C."
   },
 ];
 
@@ -137,7 +137,7 @@ export const STASJONER_UKE = [
 export const TRONSKIFTE = {
   aktiv: false,
   tittel: "NORDLAND LEDER!",
-  beskrivelse: "Nordland leder sammenlagt med 175.3 poeng - 8.7 poeng foran Trøndelag (166.6).",
+  beskrivelse: "Nordland leder sammenlagt med 175.2 poeng - 8.3 poeng foran Trøndelag (166.9).",
   gammelLeder: "Nordland",
   nyLeder: "Nordland",
 };
@@ -146,9 +146,9 @@ export const TRONSKIFTE = {
 
 export const DAGENS_LEDER = {
   fylke: "Finnmark",
-  ei: 26.0,
-  temp: -0.1,
-  nedbor: 0,
+  ei: 27.0,
+  temp: -25.5,
+  nedbor: 4.2,
 };
 
 // ---- AKTUELL UKE / SIST FULLFORTE UKE ----
@@ -161,7 +161,7 @@ export const AKTUELL_UKE = {
   periode: "04.05 - 09.05.2026 (6 dager)",
   dagerRegistrert: 6,
   versteFylke: "Nordland",
-  versteFylkeScore: 175.3,
+  versteFylkeScore: 175.2,
 };
 
 // ---- ARKIV (fullforte uker) ----
