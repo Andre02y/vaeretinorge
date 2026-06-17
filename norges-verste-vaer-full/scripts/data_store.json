@@ -214,6 +214,77 @@
           "farevarsel": "gul"
         }
       ]
+    },
+    "2026-06-18": {
+      "county_ei": {
+        "Finnmark": 26.5,
+        "Troms": 23.9,
+        "Nordland": 23.0,
+        "Trøndelag": 23.4,
+        "Møre og Romsdal": 22.6,
+        "Vestland": 22.8,
+        "Rogaland": 23.5,
+        "Agder": 22.5,
+        "Telemark": 23.5,
+        "Vestfold": 0.0,
+        "Buskerud": 22.5,
+        "Innlandet": 24.0,
+        "Akershus": 0.0,
+        "Østfold": 25.1,
+        "Oslo": 24.1
+      },
+      "top_stations": [
+        {
+          "navn": "LAKSELV LH - NJEAIDDAN",
+          "kommune": "PORSANGER",
+          "fylke": "Finnmark",
+          "ei": 29.6,
+          "vindkast": 19.2,
+          "nedbor": 0,
+          "temp": 0,
+          "farevarsel": "ingen"
+        },
+        {
+          "navn": "ISKORAS II",
+          "kommune": "KARASJOK",
+          "fylke": "Finnmark",
+          "ei": 28.1,
+          "vindkast": 16.1,
+          "nedbor": 0,
+          "temp": 0,
+          "farevarsel": "ingen"
+        },
+        {
+          "navn": "VARDØ LUFTHAVN",
+          "kommune": "VARDØ",
+          "fylke": "Finnmark",
+          "ei": 27.9,
+          "vindkast": 15.7,
+          "nedbor": 0,
+          "temp": 0,
+          "farevarsel": "ingen"
+        },
+        {
+          "navn": "REINHAUGEN",
+          "kommune": "NESSEBY",
+          "fylke": "Finnmark",
+          "ei": 27.9,
+          "vindkast": 15.7,
+          "nedbor": 0,
+          "temp": 0,
+          "farevarsel": "ingen"
+        },
+        {
+          "navn": "RASSEGALVARRI",
+          "kommune": "KAUTOKEINO",
+          "fylke": "Finnmark",
+          "ei": 27.7,
+          "vindkast": 15.4,
+          "nedbor": 0,
+          "temp": 0,
+          "farevarsel": "ingen"
+        }
+      ]
     }
   },
   "station_days": {
@@ -24123,6 +24194,1664 @@
       "SN51250": {
         "ei": 20.0,
         "gust": 0,
+        "precip": 0,
+        "temp": 0
+      }
+    },
+    "2026-06-18": {
+      "SN52535": {
+        "ei": 24.1,
+        "gust": 8.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN75410": {
+        "ei": 25.0,
+        "gust": 10.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN50570": {
+        "ei": 22.5,
+        "gust": 5.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN13160": {
+        "ei": 24.8,
+        "gust": 9.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN67560": {
+        "ei": 24.3,
+        "gust": 8.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN51010": {
+        "ei": 21.2,
+        "gust": 2.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN39750": {
+        "ei": 22.2,
+        "gust": 4.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN79220": {
+        "ei": 21.0,
+        "gust": 2.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN33950": {
+        "ei": 21.2,
+        "gust": 2.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN87000": {
+        "ei": 24.6,
+        "gust": 9.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN28922": {
+        "ei": 21.1,
+        "gust": 2.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN80880": {
+        "ei": 22.8,
+        "gust": 5.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN93140": {
+        "ei": 26.6,
+        "gust": 13.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN24710": {
+        "ei": 22.1,
+        "gust": 4.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN9310": {
+        "ei": 27.1,
+        "gust": 14.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN76330": {
+        "ei": 24.2,
+        "gust": 8.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN12320": {
+        "ei": 22.6,
+        "gust": 5.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN7420": {
+        "ei": 24.4,
+        "gust": 8.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN51530": {
+        "ei": 21.1,
+        "gust": 2.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN35210": {
+        "ei": 21.4,
+        "gust": 2.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN60500": {
+        "ei": 21.9,
+        "gust": 3.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN96400": {
+        "ei": 27.1,
+        "gust": 14.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN40250": {
+        "ei": 21.3,
+        "gust": 2.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN86600": {
+        "ei": 24.4,
+        "gust": 8.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN18950": {
+        "ei": 24.7,
+        "gust": 9.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN92860": {
+        "ei": 26.7,
+        "gust": 13.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN66150": {
+        "ei": 23.2,
+        "gust": 6.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN46220": {
+        "ei": 22.1,
+        "gust": 4.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN77230": {
+        "ei": 21.4,
+        "gust": 2.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN96310": {
+        "ei": 26.6,
+        "gust": 13.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN88450": {
+        "ei": 22.1,
+        "gust": 4.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN45530": {
+        "ei": 22.7,
+        "gust": 5.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN90490": {
+        "ei": 23.2,
+        "gust": 6.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN36330": {
+        "ei": 22.0,
+        "gust": 4.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN36560": {
+        "ei": 21.2,
+        "gust": 2.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN59695": {
+        "ei": 21.7,
+        "gust": 3.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN84500": {
+        "ei": 22.8,
+        "gust": 5.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN77425": {
+        "ei": 21.8,
+        "gust": 3.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN93090": {
+        "ei": 27.6,
+        "gust": 15.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN98640": {
+        "ei": 26.6,
+        "gust": 13.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN44610": {
+        "ei": 25.4,
+        "gust": 10.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN24890": {
+        "ei": 22.4,
+        "gust": 4.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN90800": {
+        "ei": 24.8,
+        "gust": 9.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN84630": {
+        "ei": 23.5,
+        "gust": 7.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN40510": {
+        "ei": 23.9,
+        "gust": 7.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN48330": {
+        "ei": 24.8,
+        "gust": 9.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN75220": {
+        "ei": 24.7,
+        "gust": 9.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN31620": {
+        "ei": 23.4,
+        "gust": 6.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN91590": {
+        "ei": 26.1,
+        "gust": 12.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN50540": {
+        "ei": 23.1,
+        "gust": 6.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN79610": {
+        "ei": 21.2,
+        "gust": 2.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN30650": {
+        "ei": 24.4,
+        "gust": 8.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN59800": {
+        "ei": 21.9,
+        "gust": 3.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN28380": {
+        "ei": 22.2,
+        "gust": 4.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN93611": {
+        "ei": 27.7,
+        "gust": 15.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN180": {
+        "ei": 23.2,
+        "gust": 6.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN82410": {
+        "ei": 23.9,
+        "gust": 7.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN60810": {
+        "ei": 22.4,
+        "gust": 4.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN13420": {
+        "ei": 23.4,
+        "gust": 6.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN27470": {
+        "ei": 24.1,
+        "gust": 8.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN59110": {
+        "ei": 22.9,
+        "gust": 5.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN77280": {
+        "ei": 20.9,
+        "gust": 1.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN59681": {
+        "ei": 21.6,
+        "gust": 3.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN89010": {
+        "ei": 23.9,
+        "gust": 7.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN53101": {
+        "ei": 22.8,
+        "gust": 5.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN15270": {
+        "ei": 23.9,
+        "gust": 7.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN34130": {
+        "ei": 24.8,
+        "gust": 9.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN47300": {
+        "ei": 25.7,
+        "gust": 11.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN27500": {
+        "ei": 25.9,
+        "gust": 11.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN91120": {
+        "ei": 26.6,
+        "gust": 13.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN55425": {
+        "ei": 23.1,
+        "gust": 6.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN16560": {
+        "ei": 26.2,
+        "gust": 12.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN4780": {
+        "ei": 24.4,
+        "gust": 8.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN32220": {
+        "ei": 23.0,
+        "gust": 6.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN55700": {
+        "ei": 21.4,
+        "gust": 2.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN50310": {
+        "ei": 22.2,
+        "gust": 4.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN94280": {
+        "ei": 25.1,
+        "gust": 10.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN79600": {
+        "ei": 21.4,
+        "gust": 2.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN43350": {
+        "ei": 22.9,
+        "gust": 5.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN63820": {
+        "ei": 23.9,
+        "gust": 7.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN36200": {
+        "ei": 25.4,
+        "gust": 10.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN32060": {
+        "ei": 22.9,
+        "gust": 5.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN68860": {
+        "ei": 22.6,
+        "gust": 5.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN81775": {
+        "ei": 23.4,
+        "gust": 6.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN87120": {
+        "ei": 24.4,
+        "gust": 8.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN79700": {
+        "ei": 21.8,
+        "gust": 3.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN23550": {
+        "ei": 23.2,
+        "gust": 6.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN27010": {
+        "ei": 22.1,
+        "gust": 4.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN98550": {
+        "ei": 27.4,
+        "gust": 14.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN87640": {
+        "ei": 22.6,
+        "gust": 5.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN55701": {
+        "ei": 23.7,
+        "gust": 7.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN46432": {
+        "ei": 24.9,
+        "gust": 9.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN6020": {
+        "ei": 23.6,
+        "gust": 7.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN65310": {
+        "ei": 23.4,
+        "gust": 6.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN76530": {
+        "ei": 21.9,
+        "gust": 3.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN62480": {
+        "ei": 22.0,
+        "gust": 4.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN61630": {
+        "ei": 24.2,
+        "gust": 8.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN96890": {
+        "ei": 27.5,
+        "gust": 15.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN13655": {
+        "ei": 23.1,
+        "gust": 6.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN80705": {
+        "ei": 23.6,
+        "gust": 7.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN47260": {
+        "ei": 24.4,
+        "gust": 8.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN21680": {
+        "ei": 22.9,
+        "gust": 5.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN79764": {
+        "ei": 21.9,
+        "gust": 3.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN51440": {
+        "ei": 20.6,
+        "gust": 1.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN59680": {
+        "ei": 21.8,
+        "gust": 3.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN76240": {
+        "ei": 24.1,
+        "gust": 8.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN65940": {
+        "ei": 24.6,
+        "gust": 9.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN98645": {
+        "ei": 25.6,
+        "gust": 11.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN8140": {
+        "ei": 23.6,
+        "gust": 7.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN62270": {
+        "ei": 23.1,
+        "gust": 6.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN98790": {
+        "ei": 24.9,
+        "gust": 9.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN53480": {
+        "ei": 23.4,
+        "gust": 6.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN44080": {
+        "ei": 24.6,
+        "gust": 9.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN61410": {
+        "ei": 21.9,
+        "gust": 3.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN91740": {
+        "ei": 24.4,
+        "gust": 8.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN98974": {
+        "ei": 24.9,
+        "gust": 9.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN23420": {
+        "ei": 25.3,
+        "gust": 10.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN15262": {
+        "ei": 22.9,
+        "gust": 5.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN40880": {
+        "ei": 20.8,
+        "gust": 1.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN700": {
+        "ei": 22.9,
+        "gust": 5.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN41770": {
+        "ei": 23.2,
+        "gust": 6.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN63420": {
+        "ei": 23.6,
+        "gust": 7.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN42940": {
+        "ei": 21.3,
+        "gust": 2.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN15890": {
+        "ei": 23.8,
+        "gust": 7.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN92750": {
+        "ei": 26.0,
+        "gust": 12.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN94680": {
+        "ei": 26.9,
+        "gust": 13.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN73466": {
+        "ei": 22.4,
+        "gust": 4.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN84900": {
+        "ei": 22.9,
+        "gust": 5.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN91729": {
+        "ei": 27.1,
+        "gust": 14.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN86740": {
+        "ei": 24.0,
+        "gust": 8.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN67280": {
+        "ei": 22.4,
+        "gust": 4.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN54710": {
+        "ei": 23.9,
+        "gust": 7.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN94230": {
+        "ei": 25.9,
+        "gust": 11.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN93301": {
+        "ei": 25.4,
+        "gust": 10.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN18700": {
+        "ei": 23.9,
+        "gust": 7.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN25830": {
+        "ei": 22.1,
+        "gust": 4.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN97710": {
+        "ei": 28.1,
+        "gust": 16.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN82720": {
+        "ei": 22.2,
+        "gust": 4.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN16400": {
+        "ei": 25.7,
+        "gust": 11.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN90450": {
+        "ei": 23.1,
+        "gust": 6.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN32890": {
+        "ei": 21.1,
+        "gust": 2.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN4200": {
+        "ei": 23.8,
+        "gust": 7.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN29720": {
+        "ei": 20.8,
+        "gust": 1.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN42930": {
+        "ei": 24.6,
+        "gust": 9.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN84880": {
+        "ei": 23.4,
+        "gust": 6.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN96220": {
+        "ei": 24.9,
+        "gust": 9.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN16271": {
+        "ei": 22.8,
+        "gust": 5.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN58900": {
+        "ei": 21.7,
+        "gust": 3.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN84701": {
+        "ei": 22.8,
+        "gust": 5.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN84970": {
+        "ei": 23.5,
+        "gust": 7.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN82290": {
+        "ei": 22.6,
+        "gust": 5.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN210": {
+        "ei": 25.6,
+        "gust": 11.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN9580": {
+        "ei": 23.8,
+        "gust": 7.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN80102": {
+        "ei": 23.2,
+        "gust": 6.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN41175": {
+        "ei": 22.1,
+        "gust": 4.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN71850": {
+        "ei": 26.6,
+        "gust": 13.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN43010": {
+        "ei": 20.8,
+        "gust": 1.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN77490": {
+        "ei": 23.3,
+        "gust": 6.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN91251": {
+        "ei": 22.1,
+        "gust": 4.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN50865": {
+        "ei": 23.2,
+        "gust": 6.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN97251": {
+        "ei": 25.7,
+        "gust": 11.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN48120": {
+        "ei": 24.1,
+        "gust": 8.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN85890": {
+        "ei": 25.1,
+        "gust": 10.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN30255": {
+        "ei": 22.8,
+        "gust": 5.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN55720": {
+        "ei": 22.6,
+        "gust": 5.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN49085": {
+        "ei": 24.4,
+        "gust": 8.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN71550": {
+        "ei": 22.2,
+        "gust": 4.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN60990": {
+        "ei": 22.4,
+        "gust": 4.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN85380": {
+        "ei": 23.8,
+        "gust": 7.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN43030": {
+        "ei": 21.1,
+        "gust": 2.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN90760": {
+        "ei": 25.3,
+        "gust": 10.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN53680": {
+        "ei": 21.8,
+        "gust": 3.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN23410": {
+        "ei": 24.1,
+        "gust": 8.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN17150": {
+        "ei": 24.5,
+        "gust": 9.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN92350": {
+        "ei": 26.1,
+        "gust": 12.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN35860": {
+        "ei": 24.4,
+        "gust": 8.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN75550": {
+        "ei": 24.6,
+        "gust": 9.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN85450": {
+        "ei": 24.1,
+        "gust": 8.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN76750": {
+        "ei": 23.1,
+        "gust": 6.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN58100": {
+        "ei": 23.9,
+        "gust": 7.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN69380": {
+        "ei": 21.8,
+        "gust": 3.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN25115": {
+        "ei": 22.9,
+        "gust": 5.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN26990": {
+        "ei": 23.9,
+        "gust": 7.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN63705": {
+        "ei": 23.1,
+        "gust": 6.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN61420": {
+        "ei": 23.3,
+        "gust": 6.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN25112": {
+        "ei": 22.5,
+        "gust": 5.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN95350": {
+        "ei": 26.4,
+        "gust": 12.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN87110": {
+        "ei": 23.9,
+        "gust": 7.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN89360": {
+        "ei": 22.8,
+        "gust": 5.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN71000": {
+        "ei": 23.0,
+        "gust": 6.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN20301": {
+        "ei": 23.4,
+        "gust": 6.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN39100": {
+        "ei": 23.9,
+        "gust": 7.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN98400": {
+        "ei": 26.9,
+        "gust": 13.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN91551": {
+        "ei": 24.2,
+        "gust": 8.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN72580": {
+        "ei": 23.1,
+        "gust": 6.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN69100": {
+        "ei": 22.1,
+        "gust": 4.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN63630": {
+        "ei": 21.9,
+        "gust": 3.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN58860": {
+        "ei": 22.6,
+        "gust": 5.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN96850": {
+        "ei": 26.3,
+        "gust": 12.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN50070": {
+        "ei": 21.8,
+        "gust": 3.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN94500": {
+        "ei": 27.4,
+        "gust": 14.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN16610": {
+        "ei": 25.9,
+        "gust": 11.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN90720": {
+        "ei": 23.2,
+        "gust": 6.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN55290": {
+        "ei": 22.6,
+        "gust": 5.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN17280": {
+        "ei": 25.6,
+        "gust": 11.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN10380": {
+        "ei": 22.5,
+        "gust": 5.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN90491": {
+        "ei": 24.4,
+        "gust": 8.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN83710": {
+        "ei": 23.6,
+        "gust": 7.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN47350": {
+        "ei": 24.7,
+        "gust": 9.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN85560": {
+        "ei": 24.9,
+        "gust": 9.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN99370": {
+        "ei": 24.6,
+        "gust": 9.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN45870": {
+        "ei": 23.6,
+        "gust": 7.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN91502": {
+        "ei": 23.6,
+        "gust": 7.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN91380": {
+        "ei": 23.5,
+        "gust": 7.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN68290": {
+        "ei": 22.2,
+        "gust": 4.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN9380": {
+        "ei": 26.4,
+        "gust": 12.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN27450": {
+        "ei": 23.2,
+        "gust": 6.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN17000": {
+        "ei": 26.1,
+        "gust": 12.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN38350": {
+        "ei": 21.4,
+        "gust": 2.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN77295": {
+        "ei": 21.4,
+        "gust": 2.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN37230": {
+        "ei": 22.3,
+        "gust": 4.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN98976": {
+        "ei": 26.2,
+        "gust": 12.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN99460": {
+        "ei": 23.4,
+        "gust": 6.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN33300": {
+        "ei": 23.3,
+        "gust": 6.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN78360": {
+        "ei": 21.9,
+        "gust": 3.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN16040": {
+        "ei": 22.0,
+        "gust": 4.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN49087": {
+        "ei": 25.2,
+        "gust": 10.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN88690": {
+        "ei": 23.3,
+        "gust": 6.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN98580": {
+        "ei": 27.9,
+        "gust": 15.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN99600": {
+        "ei": 26.9,
+        "gust": 13.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN57770": {
+        "ei": 23.4,
+        "gust": 6.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN57710": {
+        "ei": 21.7,
+        "gust": 3.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN94990": {
+        "ei": 29.6,
+        "gust": 19.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN85840": {
+        "ei": 22.9,
+        "gust": 5.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN27420": {
+        "ei": 24.1,
+        "gust": 8.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN78800": {
+        "ei": 21.4,
+        "gust": 2.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN65451": {
+        "ei": 23.6,
+        "gust": 7.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN85040": {
+        "ei": 24.7,
+        "gust": 9.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN61060": {
+        "ei": 24.6,
+        "gust": 9.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN25630": {
+        "ei": 21.0,
+        "gust": 2.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN74350": {
+        "ei": 22.1,
+        "gust": 4.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN44560": {
+        "ei": 24.3,
+        "gust": 8.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN29950": {
+        "ei": 25.6,
+        "gust": 11.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN93000": {
+        "ei": 27.1,
+        "gust": 14.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN57000": {
+        "ei": 20.7,
+        "gust": 1.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN39040": {
+        "ei": 22.0,
+        "gust": 4.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN49800": {
+        "ei": 22.1,
+        "gust": 4.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN94281": {
+        "ei": 27.4,
+        "gust": 14.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN2650": {
+        "ei": 23.8,
+        "gust": 7.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN89985": {
+        "ei": 24.3,
+        "gust": 8.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN76450": {
+        "ei": 24.2,
+        "gust": 8.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN58070": {
+        "ei": 22.2,
+        "gust": 4.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN98090": {
+        "ei": 26.4,
+        "gust": 12.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN26900": {
+        "ei": 22.4,
+        "gust": 4.9,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN98360": {
+        "ei": 27.6,
+        "gust": 15.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN3190": {
+        "ei": 24.0,
+        "gust": 8.0,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN38140": {
+        "ei": 22.6,
+        "gust": 5.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN91530": {
+        "ei": 22.6,
+        "gust": 5.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN18210": {
+        "ei": 23.8,
+        "gust": 7.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN51980": {
+        "ei": 21.6,
+        "gust": 3.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN64330": {
+        "ei": 23.1,
+        "gust": 6.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN71990": {
+        "ei": 26.1,
+        "gust": 12.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN88650": {
+        "ei": 22.1,
+        "gust": 4.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN42160": {
+        "ei": 23.1,
+        "gust": 6.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN98978": {
+        "ei": 27.9,
+        "gust": 15.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN50500": {
+        "ei": 23.2,
+        "gust": 6.4,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN5590": {
+        "ei": 23.4,
+        "gust": 6.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN10055": {
+        "ei": 23.8,
+        "gust": 7.5,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN73550": {
+        "ei": 22.4,
+        "gust": 4.8,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN38730": {
+        "ei": 21.3,
+        "gust": 2.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN8840": {
+        "ei": 23.3,
+        "gust": 6.6,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN4460": {
+        "ei": 22.1,
+        "gust": 4.3,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN89350": {
+        "ei": 22.9,
+        "gust": 5.7,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN12680": {
+        "ei": 22.6,
+        "gust": 5.1,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN47610": {
+        "ei": 24.1,
+        "gust": 8.2,
+        "precip": 0,
+        "temp": 0
+      },
+      "SN29400": {
+        "ei": 22.5,
+        "gust": 5.0,
         "precip": 0,
         "temp": 0
       }
